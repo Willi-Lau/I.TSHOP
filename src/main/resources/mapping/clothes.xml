@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwy.demo.mapper.ClothesMapper">
+
+
+
+     <select id="select_dreamclothes" resultType="com.lwy.demo.bean.Clothes" parameterType="com.lwy.demo.bean.Clothes_type">
+               select * from clothes c
+               <where>
+                   <if test="money_max != null and money_min != null">
+
+
+
+                           c.money between #{money_min} and #{money_max}
+
+
+                   </if>
+
+
+                   <if test="type != null and type != ''">
+                       and c.type =#{type}
+                   </if>
+                   <if test="brand != null and brand != '' and brand != '全部品牌'" >
+
+                           and  c.brand =#{brand}
+
+
+
+                   </if>
+
+               </where>
+ </select>
+
+</mapper>

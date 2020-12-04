@@ -1,0 +1,17 @@
+.form_register{
+    width: 600px;
+    position: absolute;
+    top: 100px;
+    left: 450px;
+}
+.address{
+    position: relative;
+    left: -140px;
+
+}
+
+.sex{
+    position: relative;
+    left: -190px;
+
+}

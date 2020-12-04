@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwy.demo.mapper.CartMapper">
+
+
+    <select id="selectcartclothes" parameterType="java.lang.String" resultType="com.lwy.demo.bean.Cart_Clothes">
+        select clothes.id clothes_id, clothes.type clothes_type, clothes.brand clothes_brand,
+         clothes.info clothes_info, clothes.money clothes_money,
+         clothes.num clothes_num, clothes.src clothes_src, clothes.cart_num clothes_cart_num,
+         cart.username cart_username,cart.num cart_num,cart.cart_id cart_cart_id
+        from clothes,cart
+        where clothes.id = cart.id
+        and cart.username = #{name}
+        and cart.num >0
+    </select>
+
+</mapper>

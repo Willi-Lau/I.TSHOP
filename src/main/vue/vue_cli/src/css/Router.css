@@ -1,0 +1,108 @@
+.router_buy_all{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.router_buy_all{
+    position: relative;
+}
+.router_all_hrader_dropdown-link{
+    position: absolute;
+    right: -600px;
+    top: 50px;
+}
+.el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+}
+.el-icon-arrow-down {
+    font-size: 12px;
+}
+.router_all_hrader{
+    width: 100%;
+    height: 100px;
+    background-color: #d3dce6;
+    margin-bottom: 20px;
+}
+.router_all_hrader_it{
+    color: black;
+    font-size: 40px;
+    font-weight: 700;
+    font-family: "Adobe Myungjo Std M";
+    position: absolute;
+    top: 20px;
+    left: 700px;
+}
+.gobottom{
+    position: fixed;
+    right: 40px;
+    top: 330px;
+}
+.router_buy_all_img{
+    position: relative;
+    left: -250px;
+}
+.router_buy_all_brand,.router_buy_all_inf,.router_buy_all_money,.router_buy_all_num,.add_cart{
+
+    position: relative;
+    left: 300px;
+    bottom: 500px;
+    color: black;
+}
+.router_buy_all_brand{
+    font-size: 30px;
+
+    font-family: "Adobe Myungjo Std M";
+}
+.router_buy_all_inf{
+    font-family: "Adobe 黑体 Std R";
+    margin: 20px;
+    font-size: 25px;
+}
+.router_buy_all_money{
+    margin: 20px;
+    font-family: "Adobe Myungjo Std M";
+    font-size: 20px;
+    font-weight: 600;
+}
+.router_buy_all_num{
+
+}
+.dropdown_img_men{
+    position: absolute;
+    left: -60px;
+    top: 50px;
+    z-index: 99999;
+    display:none;
+}
+.dropdown_img_women{
+    position: absolute;
+    left: -60px;
+    top: 90px;
+    z-index: 99999;
+    display: none;
+
+}
+.dropdown_img_baby{
+    position: absolute;
+    left: -60px;
+    top: 120px;
+    z-index: 99999;
+    display: none;
+}
+.dream_type{
+    /*background-color: #42b983;*/
+    margin-right: 300px;
+    margin-left: 300px;
+}
+.router_dream_button{
+
+    position: relative;
+    right: 120px;
+    top: 30px;
+
+}
+.add_cart{
+margin: 20px;
+    margin-top: 40px;
+}

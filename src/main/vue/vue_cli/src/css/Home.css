@@ -1,0 +1,26 @@
+/*body{*/
+/*  background-color: #B2E0DF;*/
+/*}*/
+/*200,235,223*/
+.welcome_hone{
+    font-size: 50px;
+    font-family: Arial;
+    color: #303133;
+
+}
+.IT{
+    font-size: 150px;
+    color: black;
+    margin-top: 50px;
+}
+
+.form{
+    /*background-color: #BBE6D6;*/
+    width: 400px;
+    position: relative;
+    left: 530px;
+    top: 50px;
+    padding-right: 70px;
+    padding-top: 40px;
+    padding-bottom: 50px;
+}

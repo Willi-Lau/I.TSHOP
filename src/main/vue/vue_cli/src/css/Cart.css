@@ -1,0 +1,58 @@
+.cart_buy_all_img{
+    height: 300px;
+    position: relative;
+    left: -450px;
+    top: 10px;
+}
+
+.cart_buy_all{
+    border: 1px solid black;
+    position: relative;
+    height: 320px;
+
+}
+.cart_buy_all_cloinf{
+    position: relative;
+    top: -300px;
+    left: 200px;
+}
+.cart_buy_all_brand{
+    font-family: "Adobe Myungjo Std M";
+    font-size: 30px;
+
+}
+.cart_buy_all_inf{
+    font-family: "Adobe Myungjo Std M";
+    font-size: 20px;
+}
+.cart_buy_all_num{
+    font-family: "Adobe Caslon Pro";
+    font-weight: 500;
+}
+.cart_buy_all_num_1{
+    border: 1px solid midnightblue;
+    width: 300px;
+    position: relative;
+    left: 580px;
+    padding-bottom: 20px;
+}
+.cart_buy_add_cart{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.cart_allmoney{
+    font-family: "Calibri Light";
+    font-size: 40px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    background-color: black;
+    color: white;
+}
+.pay{
+   position: relative;
+    left: 30px;
+    top: -8px;
+
+}
+
+

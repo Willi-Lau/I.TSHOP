@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: demo
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/jqueryhomework?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+
+
+
+
+mybatis:
+  type-aliases-package: com.lwy.demo.bean
+  mapper-locations: mapping/*.xml
+server:
+  port: 8080

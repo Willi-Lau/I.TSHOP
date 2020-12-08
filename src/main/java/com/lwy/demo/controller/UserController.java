@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RequestMapping(value = "/UserController")
 @Controller
 @CrossOrigin
@@ -16,16 +18,16 @@ public class UserController {
 
     @RequestMapping("/adduserinformation")
     @ResponseBody
-    public void adduserinformation(String [] form){
+    public void adduserinformation(HttpServletRequest request){
         User user = new User();
-        user.setUsername(form[0]);
-        user.setPassword(form[1]);
-        user.setName(form[2]);
-        user.setBirthday(form[3]);
-        user.setSex(form[4]);
-        user.setPhone(form[5]);
-        user.setAddress(form[6]);
-        user.setEmail(form[7]);
+        user.setUsername(request.getParameter("form[username]"));
+        user.setPassword(request.getParameter("form[password]"));
+        user.setName(request.getParameter("form[name]"));
+        user.setBirthday(request.getParameter("form[birthday]"));
+        user.setSex(request.getParameter("form[sex]"));
+        user.setPhone(request.getParameter("form[phone]"));
+        user.setAddress(request.getParameter("form[address]"));
+        user.setEmail(request.getParameter("form[email]"));
 
         userService.adduserinformation(user);
     }
@@ -35,14 +37,29 @@ public class UserController {
     public String checkupdate(@RequestParam(value = "form[password]") String password_from_form, @RequestParam(value = "form[name]")String name){
         String inf = "no";
 
-        String password_from_sql = userService.checkupdate(name);
-        if (password_from_sql.equals(password_from_form)){
-            inf = "yes";
+
+        String password_from_sql = null;
+
+        try {
+            //这里如果传进来的name 不是数据库里的，传递到Srvice层会触发NullPointerException 所以要进行处理
+            password_from_sql = userService.checkupdate(name);
+            if (password_from_sql.equals(password_from_form)){
+                inf = "yes";
+            }
+            else {
+                inf= "no";
+            }
+            System.out.println(name + password_from_sql);
+
+        } catch (NullPointerException e) {
+            //找不到引发空指针异常也返回no
+            //这种情况是名字根本不在数据库里
+            e.printStackTrace();
+            inf = "no";
+
         }
-        else {
-            inf= "no";
-        }
-        System.out.println(password_from_sql);
+
+
 
         return inf;
 

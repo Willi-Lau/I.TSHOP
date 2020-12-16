@@ -1,8 +1,9 @@
 package com.lwy.demo.mapper;
 
 
-import com.lwy.demo.bean.Clothes;
-import com.lwy.demo.bean.Clothes_Admin;
+import com.lwy.demo.bean.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -42,5 +43,47 @@ public interface AdminMapper {
      */
     @Update("update clothes set type = #{type},brand = #{brand} ,info =#{info},money = #{money},num = #{num} where id = #{id}")
     void modifyclothes(Clothes_Admin admin);
+    /**
+     * 获取所有用户信息，根据消费排序
+     */
+    @Select("select * from user ORDER BY  grossmoney desc")
+    List<User> alluserinf();
+    /**
+     * 查询一共有多少个用户
+     */
+    @Select("select count(*) from user")
+    int countuser();
+    /**
+     * 查找所有的管理员，按照职位排序
+     */
+    @Select("select * from admin ORDER BY  position ")
+      List<Admin> alladmininf();
+    /**
+     * 查询一共有多少个管理员
+     */
+    @Select("select count(*) from admin")
+    int countadmin();
+    /**
+     * 统计传递进来的性别衣服的个数
+     *
+     */
+    @Select("select count(*) from clothes where type = #{type}")
+    int counttype(String type);
+    /**
+     * 向赎救苦添加衣服信息
+     */
+    @Insert("insert into clothes(type,brand,info,money,num,src) values (#{type},#{brand},#{info},#{money},#{num},#{src})")
+    void insertclothes (AddClothes clothes);
+    /**
+     * 根据id删除数据库里的信息
+     */
+    @Delete("delete from clothes where id = #{id}")
+    void deleteclothes(int id);
+    /**
+     * 根据id返回图片文件的路径
+     */
+    @Select("select src from clothes where id =#{id}")
+    String findsrc(int id);
+
 
 }

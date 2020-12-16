@@ -100,7 +100,7 @@
                          width="180">
                      <template slot-scope="scope">
                          <el-button type="primary" size="min" plain @click="bosschange(scope.row.id,scope.$index)">编辑</el-button>
-                         <el-button type="danger" size="min"  plain @click="bossdel(scope.row.id)">删除</el-button>
+                         <el-button type="danger" size="min"  plain @click="bossdel(scope.row.id,scope.$index)">删除</el-button>
 <!--                         获取索引-->
 <!--                         {{scope.$index}}-->
                      </template>
@@ -167,6 +167,30 @@
             Boss
         },
         methods:{
+            bossdel(id,index){
+                //弹窗
+                this.$alert('', '是否删除', {
+                    confirmButtonText: '确定',
+                    callback: action => {
+
+                        this.$axios.post('AdminController/deleteclothes',   //URL首字母必须是大写不然会出错
+                            this.$qs.stringify({       //传参部分 使用q
+                                id:id
+                            })).then(response=>{      //返回值部分
+                            console.log(response.data)
+                        }).catch(error=>{
+                            console.log(error)
+                        })
+                        this.$delete(this.allclothes,[index])
+
+                        this.$message({
+                            type: 'info',
+                            message: `delete Success`
+                        });
+                    }
+                });
+
+            },
             change_sure(formName){
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
@@ -193,26 +217,7 @@
                             }
                         });
                         this.change_notsure();
-                        //刷新值
-                        // this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
-                        //     {
-                        //
-                        //         pageNo:page1
-                        //
-                        //     }
-                        // )).then(response=>{      //返回值部分
-                        //     this.allclothes = response.data;
-                        //     for(let i=0;i<this.allclothes.length;i++){
-                        //         this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
-                        //         console.log(this.allclothes[i].src)
-                        //     }
-                        // }).catch(error=>{
-                        //     console.log(error)
-                        // });
-                        // console.log(this.ruleForm)
-                        // console.log(formName[5])
-                        // console.log(this.allclothes[this.index])
-                         // this.$router.go(0)
+                        //使用this.$set 改变Vue不能实时监听list arr 的问题
                         this.$set(this.allclothes[this.index],"type",this.ruleForm.type)
                         this.$set(this.allclothes[this.index],"num",this.ruleForm.num)
                         this.$set(this.allclothes[this.index],"money",this.ruleForm.money)
@@ -274,6 +279,7 @@
                 }).catch(error=>{
                     console.log(error)
                 });
+                this.page=1;
             },
             gotobefore(){
                 //    获取所有的用户信息

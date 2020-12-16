@@ -23,8 +23,8 @@
                             </template>
 
                             <el-menu-item-group >
-                                <el-menu-item index="1-3">增加商品</el-menu-item>
-                                <el-menu-item index="1-4">总览仓库</el-menu-item>
+                                <el-menu-item index="1-3" @click="goaddclothes">增加商品</el-menu-item>
+                                <el-menu-item index="1-4" @click="goallclothes">总览仓库</el-menu-item>
                                 <el-menu-item index="1-5">条件筛选</el-menu-item>
                             </el-menu-item-group>
 
@@ -36,7 +36,7 @@
                             </template>
 
                             <el-menu-item-group >
-                                <el-menu-item index="2-3">用户名单</el-menu-item>
+                                <el-menu-item index="2-3" @click="goBossUser">用户名单</el-menu-item>
                             </el-menu-item-group>
 
                         </el-submenu>
@@ -47,7 +47,7 @@
                             </template>
 
                             <el-menu-item-group >
-                                <el-menu-item index="3-3">管理员信息</el-menu-item>
+                                <el-menu-item index="3-3" @click="goadmininf">管理员信息</el-menu-item>
                             </el-menu-item-group>
 
                         </el-submenu>
@@ -91,6 +91,18 @@
 
         },
         methods:{
+            goaddclothes(){
+                this.$router.push("/BossAddClothes");
+            },
+            goadmininf(){
+                this.$router.push("/BossAdmin");
+            },
+            goallclothes(){
+                this.$router.push("/BossLogin");
+            },
+            goBossUser(){
+                this.$router.push("/BossUser");
+            },
             gologin(){
                 this.$router.push("/");
             },

@@ -3,8 +3,7 @@ package com.lwy.demo.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lwy.demo.bean.Clothes;
-import com.lwy.demo.bean.Clothes_Admin;
+import com.lwy.demo.bean.*;
 import com.lwy.demo.mapper.AdminMapper;
 
 import com.lwy.demo.util.PageRequest;
@@ -26,18 +25,9 @@ public class AdminService {
     private AdminMapper adminMapper;
 
 
-    public String selectadmin(String username){
+    public String selectadmin(String username){ return adminMapper.selectadmin(username); }
 
-        String password = adminMapper.selectadmin(username);
-
-        return password;
-    }
-
-    public List<Clothes> selectallclothespage(){
-
-
-        return adminMapper.selectallclothespage();
-    }
+    public List<Clothes> selectallclothespage(){ return adminMapper.selectallclothespage(); }
 
     public int countclothes(){
         return adminMapper.countclothes();
@@ -51,8 +41,24 @@ public class AdminService {
         adminMapper.modifyclothes(admin);
     }
 
+    public List<User> alluserinf(){return adminMapper.alluserinf();}
 
+    public int countuser(){return adminMapper.countuser();}
 
+    public List<Admin> alladmininf(){return adminMapper.alladmininf();}
 
+    public int countadmin(){return  adminMapper.countadmin();}
+
+    public int counttype(String type){return adminMapper.counttype(type); }
+
+    public void insertclothes(AddClothes clothes){  adminMapper.insertclothes(clothes);}
+
+    public String deleteclothes(int id){
+
+        String findsrc = adminMapper.findsrc(id);
+        adminMapper.deleteclothes(id);
+
+        return findsrc;
+    }
 
 }

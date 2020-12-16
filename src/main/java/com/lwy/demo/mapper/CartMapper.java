@@ -58,4 +58,7 @@ public interface CartMapper {
     @Update("update user set grossmoney = #{grossmoney} where username = #{name}")
     void updategrossmoney(String name,int grossmoney);
 
+
+
+
 }

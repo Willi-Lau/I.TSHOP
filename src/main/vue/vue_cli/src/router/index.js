@@ -8,6 +8,9 @@ import Router from '../views/Router.vue'
 import Address from '../views/Address.vue'
 import Cart from '../views/Cart'
 import BossLogin from '../views/BossLogin'
+import BossUser from '../views/BossUser'
+import BossAdmin from '../views/BossAdmin'
+import BossAddClothes from '../views/BossAddClothes'
 
 Vue.use(VueRouter)
 
@@ -57,6 +60,26 @@ const routes = [
 
     component: BossLogin,
 
+  },
+  {
+    path: '/BossUser',
+    name: 'BossUser',
+
+    component: BossUser,
+
+  },
+  {
+    path: '/BossAdmin',
+    name: 'BossAdmin',
+
+    component: BossAdmin,
+
+  }
+  ,{
+    path: '/BossAddClothes',
+    name: 'BossAddClothes',
+
+    component: BossAddClothes,
   }
 ]
 const originalPush = VueRouter.prototype.push

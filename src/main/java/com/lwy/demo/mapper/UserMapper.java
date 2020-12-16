@@ -18,9 +18,7 @@ public interface UserMapper {
      */
      @Select("select password from user where username = #{username}")
      String checkupdate(String username);
-    /**
-     *
-     */
+
 
 
 }

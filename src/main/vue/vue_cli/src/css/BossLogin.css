@@ -1,0 +1,36 @@
+.bosslogin{
+    position: absolute;
+    top: 110px;
+    left: 200px;
+    right: 0px;
+    bottom: 0px;
+   background-color: #dffff5;
+}
+.boss_do{
+
+    margin-bottom: 20px;
+}
+.boss_change{
+    width: 600px;
+    height: 500px;
+    background-color:white;
+    z-index: 10000;
+    position: fixed;
+    left: 370px;
+    top: 150px;
+    display: none;
+
+}
+.boss_change .button{
+    position: absolute;
+    bottom: 30px;
+    left: 220px;
+}
+.boss_change_inf{
+    position: absolute;
+    top: 50px;
+    left: 70px;
+}
+.upload-demo{
+    margin-left: 50px;
+}

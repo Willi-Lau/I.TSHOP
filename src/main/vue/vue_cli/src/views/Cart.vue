@@ -189,7 +189,17 @@
                 }).catch(error=>{
                     console.log(error)
                 });
+                //修改该用户的消费总金额
+                this.$axios.post('CartController/grossmoney',this.$qs.stringify(
+                    {
+                        name:this.name,
+                        grossmoney:this.cartallmoney
+                    }
+                )).then(response=>{      //返回值部分
 
+                }).catch(error=>{
+                    console.log(error)
+                });
 
                 this.$alert('恭喜您消费CNY:'+this.cartallmoney+'元，欢迎下次光临I.T旗舰店', '购买成功', {
                     confirmButtonText: '确定',

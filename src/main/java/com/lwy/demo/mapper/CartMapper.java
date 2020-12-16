@@ -47,5 +47,15 @@ public interface CartMapper {
      */
      @Delete("delete from cart where username = #{name}")
     void paycartclothes (String name);
+    /**
+     * 查询指定用户的总消费
+     */
+    @Select("select grossmoney from user where username = #{name}")
+    int selectgrossmoney(String name);
+    /**
+     * 修改指定用户总消费
+     */
+    @Update("update user set grossmoney = #{grossmoney} where username = #{name}")
+    void updategrossmoney(String name,int grossmoney);
 
 }

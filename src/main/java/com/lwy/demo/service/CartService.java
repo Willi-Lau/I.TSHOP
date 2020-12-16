@@ -60,4 +60,14 @@ public class CartService {
         clothesMapper.updateclothes_whencartadd(cart);
     }
 
+    public void grossmoney(String name,int grossmoney){
+        //首先查询总钱数
+        int oldgrossmoney = cartMapper.selectgrossmoney(name);
+        //重更新计算总钱数
+        int newgrossmoney = grossmoney + oldgrossmoney;
+        //执行替换
+        cartMapper.updategrossmoney(name,newgrossmoney);
+
+    }
+
 }

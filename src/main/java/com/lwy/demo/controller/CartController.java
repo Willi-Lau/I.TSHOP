@@ -58,5 +58,10 @@ public class CartController {
         cart.setUsername(request.getParameter("name"));
         cartService.addtocart(cart);
     }
+    @RequestMapping("/grossmoney")
+    @ResponseBody
+    public void grossmoney(String name,int grossmoney){
+        cartService.grossmoney(name,grossmoney);
+    }
 
 }

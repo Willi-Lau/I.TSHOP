@@ -7,6 +7,7 @@ import Index from '../views/Index.vue'
 import Router from '../views/Router.vue'
 import Address from '../views/Address.vue'
 import Cart from '../views/Cart'
+import BossLogin from '../views/BossLogin'
 
 Vue.use(VueRouter)
 
@@ -48,6 +49,13 @@ const routes = [
     name: 'Cart',
 
     component: Cart,
+
+  },
+  {
+    path: '/BossLogin',
+    name: 'BossLogin',
+
+    component: BossLogin,
 
   }
 ]

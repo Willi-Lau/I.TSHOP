@@ -25,7 +25,7 @@
                             <el-menu-item-group >
                                 <el-menu-item index="1-3" @click="goaddclothes">增加商品</el-menu-item>
                                 <el-menu-item index="1-4" @click="goallclothes">总览仓库</el-menu-item>
-                                <el-menu-item index="1-5">条件筛选</el-menu-item>
+<!--                                <el-menu-item index="1-5">条件筛选</el-menu-item>-->
                             </el-menu-item-group>
 
                         </el-submenu>

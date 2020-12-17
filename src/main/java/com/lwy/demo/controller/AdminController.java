@@ -92,6 +92,7 @@ public class AdminController {
         PageHelper.startPage(pageNo,pageSize);
         return adminService.alluserinf();
     }
+
     @RequestMapping(value = "/countuser")
     @ResponseBody
     public int countuser(){

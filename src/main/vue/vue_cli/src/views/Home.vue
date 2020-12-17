@@ -84,22 +84,35 @@ export default {
           );
 
           }
-          else {
-            // this.$alert('请重新填写', '账号或密码错误', {
-            //   confirmButtonText: '确定',
-            //
-            // });
-            this.$notify.error({
-              title: '错误',
-              message: '账号或密码错误，请重新填写'
-            });
-            this.$alert('请重新登录', '登陆失败', {
-              confirmButtonText: '确定',
-              type:"error"
-            });
+            if(reponse.data === "die") {
+                // this.$alert('请重新填写', '账号或密码错误', {
+                //   confirmButtonText: '确定',
+                //
+                // });
+                this.$notify.error({
+                    title: '错误',
+                    message: '这个账号已经被禁用，请联系工作人员'
+                });
+                this.$alert('这个账号已经被禁用，请联系工作人员', '错误', {
+                    confirmButtonText: '确定',
+                    type:"error"
+                });
+            if(reponse.data === "no") {
+                // this.$alert('请重新填写', '账号或密码错误', {
+                //   confirmButtonText: '确定',
+                //
+                // });
+                this.$notify.error({
+                    title: '错误',
+                    message: '账号或密码错误，请重新填写'
+                });
+                this.$alert('请重新登录', '登陆失败', {
+                    confirmButtonText: '确定',
+                    type: "error"
+                });
 
 
-          }
+            }}
         }).catch(error=>{
 
         })

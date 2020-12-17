@@ -3,4 +3,74 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lwy.demo.mapper.AdminMapper">
 
+
+    <select id="typeselectclothes" parameterType="com.lwy.demo.bean.AdminClothes" resultType="com.lwy.demo.bean.Clothes">
+        select * from clothes
+        <where>
+            cart_num = 0
+            <if test="id!=0 and id != null">
+                   and id = #{id}
+            </if>
+            <if test="type !='全部' and type != null">
+                    and type = #{type}
+            </if>
+            <if test="brand!='全部' and brand != null">
+                 and brand = #{brand}
+            </if>
+
+        </where>
+
+    </select>
+
+<!--    counttypeselectclothes-->
+    <select id="counttypeselectclothes" parameterType="com.lwy.demo.bean.AdminClothes" resultType="int">
+        select count(*) from clothes
+        <where>
+            cart_num = 0
+            <if test="id!=0 and id != null">
+                and id = #{id}
+            </if>
+            <if test="type !='全部' and type != null">
+                and type = #{type}
+            </if>
+            <if test="brand!='全部' and brand != null">
+                and brand = #{brand}
+            </if>
+
+        </where>
+
+    </select>
+
+    <select id="typeselectuser" parameterType="com.lwy.demo.bean.AdminUser" resultType="com.lwy.demo.bean.User">
+        select * from user
+        <where>
+             alive != 100
+             <if test="username != '全部'">
+                 and username = #{username}
+             </if>
+
+            <if test="name != '全部'">
+                 and name = #{name}
+            </if>
+        </where>
+
+        ORDER BY  grossmoney desc
+
+    </select>
+    <select id="counttypeselectuser" parameterType="com.lwy.demo.bean.AdminUser" resultType="com.lwy.demo.bean.User">
+        select count(*) from user
+        <where>
+            alive != 100
+            <if test="username != '全部'">
+                and username = #{username}
+            </if>
+
+            <if test="name != '全部'">
+                and name = #{name}
+            </if>
+        </where>
+
+        ORDER BY  grossmoney desc
+
+    </select>
 </mapper>

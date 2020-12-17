@@ -18,7 +18,11 @@ public interface UserMapper {
      */
      @Select("select password from user where username = #{username}")
      String checkupdate(String username);
-
+    /**
+     * 查询用户是否存活
+     */
+    @Select("select alive from user where username = #{username}")
+    int aliveuser(String username);
 
 
 }

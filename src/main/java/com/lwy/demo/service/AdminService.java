@@ -61,4 +61,19 @@ public class AdminService {
         return findsrc;
     }
 
+    public List<Clothes> typeselectclothes (AdminClothes clothes){
+        return adminMapper.typeselectclothes(clothes);
+    }
+
+    public int counttypeselectclothes (AdminClothes clothes){
+        return adminMapper.counttypeselectclothes(clothes);
+    }
+
+    public void changealive(String username ,int alive){
+        adminMapper.changealive(username,alive);
+    }
+
+    public List<User> typeselectuser(AdminUser user){ return  adminMapper.typeselectuser(user);}
+
+    public int counttypeselectuser(AdminUser user){ return  adminMapper.counttypeselectuser(user);}
 }

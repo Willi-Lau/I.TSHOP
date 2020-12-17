@@ -117,9 +117,7 @@
 <!--                        条件-->
                         <div class="dream_type" >
                             <el-form ref="form" :model="form" label-width="80px">
-<!--                                <el-form-item label="商品id值">-->
-<!--                                    <el-input v-model="form.id" style="width: 150px"></el-input>-->
-<!--                                </el-form-item>-->
+
                                 <el-form-item label="选择品牌">
                                     <el-select v-model="form.brand" placeholder="请选择品牌" style="margin-left: 20px">
                                         <el-option label="全部品牌" value="全部品牌"></el-option>

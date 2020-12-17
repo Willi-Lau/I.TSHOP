@@ -85,5 +85,28 @@ public interface AdminMapper {
     @Select("select src from clothes where id =#{id}")
     String findsrc(int id);
 
+    /**
+     * 条件查询衣服  默认是全部查询
+     * @param clothes
+     * @return
+     */
+    List<Clothes> typeselectclothes(AdminClothes clothes);
+    /**
+     * 查询条件查询时数据的数量
+     */
+     int counttypeselectclothes(AdminClothes clothes);
+    /**
+     * 改变用户存活状态
+     */
+    @Update("update user set alive = #{alive} where username = #{username}")
+    void changealive(String username,int alive);
+    /**
+     * 根据用户信息条件查询 空则查询所有的值
+     */
+    List<User> typeselectuser(AdminUser user);
+    /**
+     * 统计条件查询用户时的数量
+     */
+    int counttypeselectuser(AdminUser user);
 
 }

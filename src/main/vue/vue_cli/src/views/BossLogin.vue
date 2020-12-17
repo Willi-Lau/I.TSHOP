@@ -4,7 +4,36 @@
         <Boss></Boss>
         <div class="boss_do">
             <br>
-            所有库存信息
+<!--            条件查询界面-->
+            <el-form :inline="true" :model="formInline" class="demo-form-inline">
+                <el-form-item label="id">
+                    <el-input v-model="formInline.id" placeholder="id"></el-input>
+                </el-form-item>
+                <el-form-item label="种类">
+                    <el-select v-model="formInline.type" placeholder="衣服种类">
+                        <el-option label="全部" value="全部"></el-option>
+                        <el-option label="男" value="男"></el-option>
+                        <el-option label="女" value="女"></el-option>
+                        <el-option label="童" value="童"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="品牌">
+                    <el-select v-model="formInline.brand" placeholder="活动区域">
+                        <el-option label="全部" value="全部"></el-option>
+<!--                        循环出全部的品牌-->
+                        <ul v-for="(item,index) in brand_clothes" >
+
+                            <el-option :label="item" :value="item"></el-option>
+
+
+                        </ul>
+
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmitInline">查询</el-button>
+                </el-form-item>
+            </el-form>
 
 
         </div>
@@ -34,15 +63,7 @@
                         </el-radio-group>
                     </el-form-item>
 
-<!--                    <el-upload-->
-<!--                            class="upload-demo"-->
-<!--                            drag-->
-<!--                            action="http://localhost:8080/"-->
-<!--                            multiple>-->
-<!--                        <i class="el-icon-upload"></i>-->
-<!--                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
-<!--                        <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>-->
-<!--                    </el-upload>-->
+
                     <br>
                     <el-form-item>
                         <el-button type="primary" @click="change_sure('ruleForm')">确定修改</el-button>
@@ -78,10 +99,12 @@
                          label="介绍"
                          width="240"/>
                  <el-table-column
+
                          prop="money"
                          label="价格"
                          width="180"/>
                  <el-table-column
+
                          prop="num"
                          label="库存数量"
                          width="140"/>
@@ -134,6 +157,12 @@
         data(){
 
             return{
+                brand_clothes:{},
+                formInline: {
+                    id: '',
+                    brand: '全部',
+                    type:'全部'
+                },
                  allclothes:{},
                  page:1,
                  lastpage:'',
@@ -167,6 +196,57 @@
             Boss
         },
         methods:{
+            //条件查询
+            onSubmitInline(){
+                //首先根据条件进行查询
+                //对form的数据进行包装 如果是空就替换成0
+                if(this.formInline.id == ''){
+                    this.formInline.id = 0
+                }
+                if(this.formInline.type == ''){
+                    this.formInline.type = "全部"
+                }
+
+                if(this.formInline.brand == ''){
+                    this.formInline.brand = "全部"
+                }
+
+
+                this.$axios.post('AdminController/typeselectclothes',   //URL首字母必须是大写不然会出错
+                    this.$qs.stringify({       //传参部分 使用q
+                        'form':this.formInline,
+                        pageNo:1
+                    })).then(response=>{      //返回值部分  返回查询到的结果集
+                        //首先删除 allclothes 里面的所有东西
+
+
+                    this.allclothes = response.data
+                    for(let i=0;i<this.allclothes.length;i++){
+                        this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
+                        console.log(this.allclothes[i].src)
+                    }
+                    console.log(response.data)
+                }).catch(error=>{
+                    console.log(error)
+                })
+
+                //查询一共有多少页
+                this.$axios.post('AdminController/counttypeselectclothes',this.$qs.stringify(
+                    {
+                        'form':this.formInline,
+
+                    }
+                )).then(response=>{      //返回值部分
+                    this.lastpage = response.data;
+                    this.lastpage = Math.ceil( this.lastpage / 6) ;
+
+                }).catch(error=>{
+                    console.log(error)
+                });
+                if(this.formInline.id == 0){this.formInline.id = '';}
+                //回到第一页
+                this.page=1;
+            },
             bossdel(id,index){
                 //弹窗
                 this.$alert('', '是否删除', {
@@ -181,7 +261,7 @@
                         }).catch(error=>{
                             console.log(error)
                         })
-                        this.$delete(this.allclothes,[index])
+                        this.$delete(this.allclothes,index)
 
                         this.$message({
                             type: 'info',
@@ -262,105 +342,255 @@
                 }).catch(error=>{
                     console.log(error)
                 });
+
+
             },
             gotoone(){
-                //    获取所有的用户信息
-                this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
-                    {
-                        //刚开始查询第一页
+                // //    获取所有的用户信息
+                // this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
+                //     {
+                //         //刚开始查询第一页
+                //         pageNo:1
+                //     }
+                // )).then(response=>{      //返回值部分
+                //     this.allclothes = response.data;
+                //     for(let i=0;i<this.allclothes.length;i++){
+                //         this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
+                //         console.log(this.allclothes[i].src)
+                //     }
+                // }).catch(error=>{
+                //     console.log(error)
+                // });
+                if(this.formInline.id == ''){
+                    this.formInline.id = 0
+                }
+                if(this.formInline.type == ''){
+                    this.formInline.type = "全部"
+                }
+
+                if(this.formInline.brand == ''){
+                    this.formInline.brand = "全部"
+                }
+                this.$axios.post('AdminController/typeselectclothes',   //URL首字母必须是大写不然会出错
+                    this.$qs.stringify({       //传参部分 使用q
+                        'form':this.formInline,
                         pageNo:1
-                    }
-                )).then(response=>{      //返回值部分
-                    this.allclothes = response.data;
+                    })).then(response=>{      //返回值部分  返回查询到的结果集
+                    //首先删除 allclothes 里面的所有东西
+
+
+                    this.allclothes = response.data
                     for(let i=0;i<this.allclothes.length;i++){
                         this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
                         console.log(this.allclothes[i].src)
                     }
+                    console.log(response.data)
                 }).catch(error=>{
                     console.log(error)
-                });
+                })
+                if(this.formInline.id == 0){this.formInline.id = '';}
                 this.page=1;
             },
             gotobefore(){
-                //    获取所有的用户信息
-                this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
-                    {
-                        //刚开始查询第一页
+                // //    获取所有的用户信息
+                // this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
+                //     {
+                //         //刚开始查询第一页
+                //         pageNo:this.page-1
+                //     }
+                // )).then(response=>{      //返回值部分
+                //     this.allclothes = response.data;
+                //     for(let i=0;i<this.allclothes.length;i++){
+                //         this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
+                //         console.log(this.allclothes[i].src)
+                //     }
+                //
+                // }).catch(error=>{
+                //     console.log(error)
+                // });
+                if(this.formInline.id == ''){
+                    this.formInline.id = 0
+                }
+                if(this.formInline.type == ''){
+                    this.formInline.type = "全部"
+                }
+
+                if(this.formInline.brand == ''){
+                    this.formInline.brand = "全部"
+                }
+                this.$axios.post('AdminController/typeselectclothes',   //URL首字母必须是大写不然会出错
+                    this.$qs.stringify({       //传参部分 使用q
+                        'form':this.formInline,
                         pageNo:this.page-1
-                    }
-                )).then(response=>{      //返回值部分
-                    this.allclothes = response.data;
+                    })).then(response=>{      //返回值部分  返回查询到的结果集
+                    //首先删除 allclothes 里面的所有东西
+
+
+                    this.allclothes = response.data
                     for(let i=0;i<this.allclothes.length;i++){
                         this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
                         console.log(this.allclothes[i].src)
                     }
-
+                    console.log(response.data)
                 }).catch(error=>{
                     console.log(error)
-                });
+                })
+                if(this.formInline.id == 0){this.formInline.id = '';}
                 if(this.page >1){
                 this.page-=1;
                 }
             },
             gotoafter(){
-                //    获取所有的用户信息
-                this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
-                    {
-                        //刚开始查询第一页
+                // //    获取所有的用户信息
+                // this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
+                //     {
+                //         //刚开始查询第一页
+                //         pageNo:this.page+1
+                //     }
+                // )).then(response=>{      //返回值部分
+                //     this.allclothes = response.data;
+                //     for(let i=0;i<this.allclothes.length;i++){
+                //         this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
+                //         console.log(this.allclothes[i].src)
+                //     }
+                // }).catch(error=>{
+                //     console.log(error)
+                // });
+                if(this.formInline.id == ''){
+                    this.formInline.id = 0
+                }
+                if(this.formInline.type == ''){
+                    this.formInline.type = "全部"
+                }
+
+                if(this.formInline.brand == ''){
+                    this.formInline.brand = "全部"
+                }
+                this.$axios.post('AdminController/typeselectclothes',   //URL首字母必须是大写不然会出错
+                    this.$qs.stringify({       //传参部分 使用q
+                        'form':this.formInline,
                         pageNo:this.page+1
-                    }
-                )).then(response=>{      //返回值部分
-                    this.allclothes = response.data;
+                    })).then(response=>{      //返回值部分  返回查询到的结果集
+                    //首先删除 allclothes 里面的所有东西
+
+
+                    this.allclothes = response.data
                     for(let i=0;i<this.allclothes.length;i++){
                         this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
                         console.log(this.allclothes[i].src)
                     }
+                    console.log(response.data)
                 }).catch(error=>{
                     console.log(error)
-                });
+                })
                 if(this.page < this.lastpage){this.page+=1;}
+                if(this.formInline.id == 0){this.formInline.id = '';}
 
             },
             gotofinal(){
-                //    获取所有的用户信息
-                this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
-                    {
-                        //刚开始查询第一页
+                // //    获取所有的用户信息
+                // this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
+                //     {
+                //         //刚开始查询第一页
+                //         pageNo:this.lastpage
+                //     }
+                // )).then(response=>{      //返回值部分
+                //     this.allclothes = response.data;
+                //     for(let i=0;i<this.allclothes.length;i++){
+                //         this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
+                //         console.log(this.allclothes[i].src)
+                //     }
+                // }).catch(error=>{
+                //     console.log(error)
+                // });
+                if(this.formInline.id == ''){
+                    this.formInline.id = 0
+                }
+                if(this.formInline.type == ''){
+                    this.formInline.type = "全部"
+                }
+
+                if(this.formInline.brand == ''){
+                    this.formInline.brand = "全部"
+                }
+                this.$axios.post('AdminController/typeselectclothes',   //URL首字母必须是大写不然会出错
+                    this.$qs.stringify({       //传参部分 使用q
+                        'form':this.formInline,
                         pageNo:this.lastpage
-                    }
-                )).then(response=>{      //返回值部分
-                    this.allclothes = response.data;
+                    })).then(response=>{      //返回值部分  返回查询到的结果集
+                    //首先删除 allclothes 里面的所有东西
+
+
+                    this.allclothes = response.data
                     for(let i=0;i<this.allclothes.length;i++){
                         this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
                         console.log(this.allclothes[i].src)
                     }
+                    console.log(response.data)
                 }).catch(error=>{
                     console.log(error)
-                });
+                })
                  this.page = this.lastpage
+                if(this.formInline.id == 0){this.formInline.id = '';}
             },
         }
         ,
         created() {
-        //    获取所有的用户信息
-            this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
-                {
-                    //刚开始查询第一页
-                      pageNo:1
-                }
+            if(this.formInline.id == ''){
+                this.formInline.id = 0
+            }
+            if(this.formInline.type == ''){
+                this.formInline.type = "全部"
+            }
+
+            if(this.formInline.brand == ''){
+                this.formInline.brand = "全部"
+            }
+            //所有的衣服品牌
+            this.$axios.post('ClothesController/select_allclothesbrand',this.$qs.stringify(
+
             )).then(response=>{      //返回值部分
-                this.allclothes = response.data;
+                this.brand_clothes = response.data;
+                console.log(response.data)
+            }).catch(error=>{
+                console.log(error)
+            });
+        //    获取所有的用户信息
+        //     this.$axios.post('AdminController/selectallclothes',this.$qs.stringify(
+        //         {
+        //             //刚开始查询第一页
+        //               pageNo:1
+        //         }
+        //     )).then(response=>{      //返回值部分
+        //         this.allclothes = response.data;
+        //         for(let i=0;i<this.allclothes.length;i++){
+        //             this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
+        //             console.log(this.allclothes[i].src)
+        //         }
+        //     }).catch(error=>{
+        //         console.log(error)
+        //     });
+            this.$axios.post('AdminController/typeselectclothes',   //URL首字母必须是大写不然会出错
+                this.$qs.stringify({       //传参部分 使用q
+                    'form':this.formInline,
+                    pageNo:this.lastpage
+                })).then(response=>{      //返回值部分  返回查询到的结果集
+                //首先删除 allclothes 里面的所有东西
+
+
+                this.allclothes = response.data
                 for(let i=0;i<this.allclothes.length;i++){
                     this.allclothes[i].src = require("../assets/clothes/"+this.allclothes[i].src);
                     console.log(this.allclothes[i].src)
                 }
+                console.log(response.data)
             }).catch(error=>{
                 console.log(error)
-            });
+            })
             //查询一共有多少页
-            this.$axios.post('AdminController/countclothes',this.$qs.stringify(
+            this.$axios.post('AdminController/counttypeselectclothes',this.$qs.stringify(
                 {
-                    //刚开始查询第一页
+                    'form':this.formInline,
 
                 }
             )).then(response=>{      //返回值部分
@@ -370,6 +600,20 @@
             }).catch(error=>{
                 console.log(error)
             });
+            if(this.formInline.id == 0){this.formInline.id = '';}
+
+            // this.$axios.post('AdminController/countclothes',this.$qs.stringify(
+            //     {
+            //         //刚开始查询第一页
+            //
+            //     }
+            // )).then(response=>{      //返回值部分
+            //     this.lastpage = response.data;
+            //     this.lastpage = Math.ceil( this.lastpage / 6) ;
+            //
+            // }).catch(error=>{
+            //     console.log(error)
+            // });
         }
     }
 </script>

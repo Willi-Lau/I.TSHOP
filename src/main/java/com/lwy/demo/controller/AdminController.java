@@ -27,6 +27,41 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    //条件查询
+    @RequestMapping("/typeselectclothes")
+    @ResponseBody
+    public List<Clothes> typeselectclothes(@RequestParam(value = "form[id]") int id,
+                                           @RequestParam(value = "form[brand]") String brand,
+                                           @RequestParam(value = "form[type]") String type,
+                                           @RequestParam(defaultValue = "1") int pageNo,
+                                           @RequestParam(defaultValue = "6") int pageSize
+    ){
+        PageHelper.startPage(pageNo,pageSize);
+        AdminClothes clothes = new AdminClothes();
+        clothes.setBrand(brand);
+        clothes.setId(id);
+        clothes.setType(type);
+        List<Clothes> list =   adminService.typeselectclothes(clothes);
+//        System.out.println(list);
+        return list;
+
+
+    }
+    //条件查询时的条数
+    @RequestMapping("/counttypeselectclothes")
+    @ResponseBody
+    public int counttypeselectclothes (@RequestParam(value = "form[id]",defaultValue = "0") int id,
+                                       @RequestParam(value = "form[brand]") String brand,
+                                       @RequestParam(value = "form[type]") String type
+                                       ){
+
+        AdminClothes clothes = new AdminClothes();
+        clothes.setBrand(brand);
+        clothes.setId(id);
+        clothes.setType(type);
+        return adminService.counttypeselectclothes(clothes);
+    }
+
     //查询管理员账户密码是否正确
     @RequestMapping("/selectadmin")
     @ResponseBody
@@ -50,7 +85,7 @@ public class AdminController {
     @RequestMapping(value = "/selectallclothes")
     @ResponseBody
     public List<Clothes> selectallclothes(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "6") int pageSize){
-        //pageNo 是要查询的页数，现在每一页有10个数据
+        //pageNo 是要查询的页数，现在每一页有6个数据
         //根据传递进来的pageNo 返回数据
         PageHelper.startPage(pageNo,pageSize);
         return  adminService.selectallclothespage();
@@ -90,7 +125,9 @@ public class AdminController {
     @ResponseBody
     public List<User> alluserinf(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "8") int pageSize){
         PageHelper.startPage(pageNo,pageSize);
-        return adminService.alluserinf();
+        List<User> list = adminService.alluserinf();
+//        System.out.println(list);
+        return list;
     }
 
     @RequestMapping(value = "/countuser")
@@ -165,4 +202,35 @@ public class AdminController {
         }
     }
 
+    //改变用户状态
+    @ResponseBody
+    @RequestMapping(value = "/changealive")
+    public void changealive(String username,int alive){
+        adminService.changealive(username,alive);
+    }
+   //条件查询用户时
+    @ResponseBody
+    @RequestMapping(value = "/typeselectuser")
+    public List<User> typeselectuser(@RequestParam(defaultValue = "1") int pageNo,
+                                     @RequestParam(defaultValue = "8") int pageSize,
+                                     @RequestParam(value = "form[username]") String username,
+                                     @RequestParam(value = "form[name]") String name
+                                     ){
+        PageHelper.startPage(pageNo,pageSize);
+        AdminUser user = new AdminUser();
+        user.setName(name);
+        user.setUsername(username);
+
+        return  adminService.typeselectuser(user);}
+
+    //条件查询用户 返回数量
+    @ResponseBody
+    @RequestMapping(value = "/counttypeselectuser")
+    public int counttypeselectuser(@RequestParam(value = "form[username]") String username,
+                                   @RequestParam(value = "form[name]") String name){
+        AdminUser user = new AdminUser();
+        user.setName(name);
+        user.setUsername(username);
+
+        return  adminService.counttypeselectuser(user);}
 }

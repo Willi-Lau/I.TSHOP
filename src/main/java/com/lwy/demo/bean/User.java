@@ -14,6 +14,7 @@ public class User {
     private String address;
     private String email;
     private int grossmoney;
+    private int alive;
 
 }
 

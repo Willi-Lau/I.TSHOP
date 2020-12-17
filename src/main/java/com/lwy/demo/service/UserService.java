@@ -22,4 +22,8 @@ public class UserService {
         return checkupdate;
     }
 
+    public int aliveuser(String username){
+        return userMapper.aliveuser(username);
+    }
+
 }

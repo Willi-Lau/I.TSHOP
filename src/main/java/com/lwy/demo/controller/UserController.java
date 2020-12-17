@@ -40,12 +40,26 @@ public class UserController {
 
         String password_from_sql = null;
 
+        int aliveuser = 0;
+
         try {
             //这里如果传进来的name 不是数据库里的，传递到Srvice层会触发NullPointerException 所以要进行处理
             password_from_sql = userService.checkupdate(name);
+            //查看是否存活
+             aliveuser = userService.aliveuser(name);
+            //密码对
             if (password_from_sql.equals(password_from_form)){
-                inf = "yes";
+                //存活
+                if(aliveuser == 1){
+                    inf = "yes";
+                }
+                //死亡
+                else {
+                    inf = "die";
+                }
+
             }
+            //密码错误
             else {
                 inf= "no";
             }

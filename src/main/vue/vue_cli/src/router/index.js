@@ -11,6 +11,7 @@ import BossLogin from '../views/BossLogin'
 import BossUser from '../views/BossUser'
 import BossAdmin from '../views/BossAdmin'
 import BossAddClothes from '../views/BossAddClothes'
+import BossUserPoint from "../views/BossUserPoint";
 
 Vue.use(VueRouter)
 
@@ -75,11 +76,19 @@ const routes = [
     component: BossAdmin,
 
   }
-  ,{
+  ,
+  {
     path: '/BossAddClothes',
     name: 'BossAddClothes',
 
     component: BossAddClothes,
+  }
+  ,
+  {
+    path: '/BossUserPoint',
+    name: 'BossUserPoint',
+
+    component: BossUserPoint,
   }
 ]
 const originalPush = VueRouter.prototype.push

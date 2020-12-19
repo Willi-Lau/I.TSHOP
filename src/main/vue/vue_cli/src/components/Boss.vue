@@ -37,6 +37,7 @@
 
                             <el-menu-item-group >
                                 <el-menu-item index="2-3" @click="goBossUser">用户名单</el-menu-item>
+<!--                                <el-menu-item index="2-4" @click="goBossUserpoint">可视化数据</el-menu-item>-->
                             </el-menu-item-group>
 
                         </el-submenu>
@@ -51,14 +52,26 @@
                             </el-menu-item-group>
 
                         </el-submenu>
+
                         <el-submenu index="4">
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>可视化数据</span>
+                            </template>
+
+                            <el-menu-item-group >
+                                <el-menu-item index="4-3" @click="goBossUserpoint">I.T&i.t</el-menu-item>
+                            </el-menu-item-group>
+
+                        </el-submenu>
+                        <el-submenu index="5">
                             <template slot="title">
                                 <i class="el-icon-location"></i>
                                 <span>跳转</span>
                             </template>
 
                             <el-menu-item-group >
-                                <el-menu-item index="4-3" @click="gologin">登陆界面</el-menu-item>
+                                <el-menu-item index="5-3" @click="gologin">登陆界面</el-menu-item>
                             </el-menu-item-group>
 
                         </el-submenu>
@@ -91,6 +104,9 @@
 
         },
         methods:{
+            goBossUserpoint(){
+                this.$router.push("/BossUserPoint");
+            },
             goaddclothes(){
                 this.$router.push("/BossAddClothes");
             },

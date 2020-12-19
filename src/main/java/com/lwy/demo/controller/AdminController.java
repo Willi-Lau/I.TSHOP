@@ -3,21 +3,18 @@ package com.lwy.demo.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.lwy.demo.bean.*;
-import com.lwy.demo.service.AdminService;
-import com.lwy.demo.util.PageResult;
-import org.apache.ibatis.annotations.Param;
+import com.lwy.demo.service.impl.AdminServiceimpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @CrossOrigin
 @RequestMapping(value = "/AdminController")
@@ -25,7 +22,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class AdminController {
 
     @Autowired
-    private AdminService adminService;
+    private AdminServiceimpl adminService;
 
     //条件查询
     @RequestMapping("/typeselectclothes")
@@ -126,9 +123,24 @@ public class AdminController {
     public List<User> alluserinf(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "8") int pageSize){
         PageHelper.startPage(pageNo,pageSize);
         List<User> list = adminService.alluserinf();
-//        System.out.println(list);
+        System.out.println(list);
         return list;
     }
+    @RequestMapping(value = "/alluserinfnotpage")
+    @ResponseBody
+    public List<User> alluserinfnotpage(){
+
+        List<User> list = adminService.alluserinf();
+
+        return list;
+    }
+    @RequestMapping(value = "/alluserinfusername")
+    @ResponseBody
+    public String [] alluserinfusername(){return  adminService.alluserinfusername();}
+
+    @RequestMapping(value = "/alluserinfgrossmoney")
+    @ResponseBody
+    public String [] alluserinfgrossmoney(){return  adminService.alluserinfgrossmoney();}
 
     @RequestMapping(value = "/countuser")
     @ResponseBody

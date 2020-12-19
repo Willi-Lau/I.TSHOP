@@ -88,6 +88,8 @@
             <br> <br>
 
         </div>
+
+
     </div>
 
 </template>
@@ -126,7 +128,7 @@
 
 
                 },
-                }
+            }
         },
         components :{
             Boss
@@ -147,7 +149,7 @@
                         'form':this.userinf
                     }
                 )).then(response=>{      //返回值部分
-                          this.alluser = response.data
+                    this.alluser = response.data
 
                 }).catch(error=>{
                     console.log(error)
@@ -171,7 +173,7 @@
             //改变存活状态
             switchalive(event,username,index){
                 // alert(event)
-                 //现在event 值是变化后的值
+                //现在event 值是变化后的值
                 this.$axios.post('AdminController/changealive',this.$qs.stringify(
                     {
                         //刚开始查询第一页
@@ -185,7 +187,7 @@
                     console.log(error)
                 });
                 //改变值
-               this.alluser[index].alive = event;
+                this.alluser[index].alive = event;
 
             },
             gotoone(){

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resources;
+import java.lang.reflect.Array;
 import java.util.List;
 
 /**
@@ -108,5 +109,15 @@ public interface AdminMapper {
      * 统计条件查询用户时的数量
      */
     int counttypeselectuser(AdminUser user);
+    /**
+     * 查找所有用户名
+     */
+    @Select("select username from user ORDER BY  grossmoney desc")
+    String [] alluserinfusername();
+    /**
+     * 查找所有的钱
+     */
+    @Select("select grossmoney from user ORDER BY  grossmoney desc")
+    String [] alluserinfgrossmoney();
 
 }

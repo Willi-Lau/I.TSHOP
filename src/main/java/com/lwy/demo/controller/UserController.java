@@ -1,7 +1,8 @@
 package com.lwy.demo.controller;
 
 import com.lwy.demo.bean.User;
-import com.lwy.demo.service.UserService;
+
+import com.lwy.demo.service.impl.UserServiceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceimpl userService;
 
     @RequestMapping("/adduserinformation")
     @ResponseBody

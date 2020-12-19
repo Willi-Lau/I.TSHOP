@@ -2,7 +2,8 @@ package com.lwy.demo.controller;
 
 import com.lwy.demo.bean.Clothes;
 import com.lwy.demo.bean.Clothes_type;
-import com.lwy.demo.service.ClothesService;
+
+import com.lwy.demo.service.impl.ClothesServiceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ClothesController {
 
     @Autowired
-    private ClothesService clothesService;
+    private ClothesServiceimpl clothesService;
 
      @RequestMapping("/selectallclothes")
      @ResponseBody

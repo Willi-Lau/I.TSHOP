@@ -3,7 +3,8 @@ package com.lwy.demo.controller;
 
 import com.lwy.demo.bean.Cart;
 import com.lwy.demo.bean.Cart_Clothes;
-import com.lwy.demo.service.CartService;
+
+import com.lwy.demo.service.impl.CartServiceompl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.util.List;
 public class CartController {
 
     @Autowired
-    private CartService cartService;
+    private CartServiceompl cartService;
 
     @RequestMapping("/paycartclothes")
     @ResponseBody

@@ -2,7 +2,9 @@
     <div class="bosslogin">
 
         <Boss></Boss>
+        <br><br>
         <div class="block">
+
             <el-table
                     :data="usertime"
                     border
@@ -29,11 +31,11 @@
                 <el-pagination
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage4"
-                        :page-sizes="[100, 200, 300, 400]"
-                        :page-size="100"
+                        :current-page="pageNo"
+                        :page-sizes="pagesizes"
+                        :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="400">
+                        :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -63,7 +65,10 @@
             return{
                 reverse: true,
                 usertime:{},
-                currentPage4: 1,
+                pagesizes:[5,10,20],
+                total:10,
+                pageSize:10,
+                pageNo:1,
             }
         },
         components :{
@@ -72,9 +77,37 @@
         methods:{
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
+                this.pageSize = val;
+                this.$axios.post('UserController/selectusertime',this.$qs.stringify(
+                    {
+                        pageSize:this.pageSize,
+                        pageNo:this.pageNo
+                    }
+                )).then(response=>{      //返回值部分
+                    this.usertime = response.data
+
+
+                }).catch(error=>{
+                    console.log(error)
+                });
+
             },
             handleCurrentChange(val) {
+                this.pageNo = val;
                 console.log(`当前页: ${val}`);
+                this.$axios.post('UserController/selectusertime',this.$qs.stringify(
+                    {
+                        pageSize:this.pageSize,
+                        pageNo:this.pageNo
+                    }
+                )).then(response=>{      //返回值部分
+                    this.usertime = response.data
+
+
+                }).catch(error=>{
+                    console.log(error)
+                });
+
             }
         },
         created() {
@@ -82,11 +115,25 @@
             //进行条件查询
             this.$axios.post('UserController/selectusertime',this.$qs.stringify(
                 {
-
+                      pageSize:this.pageSize,
+                        pageNo:this.pageNo
                 }
             )).then(response=>{      //返回值部分
                 this.usertime = response.data
-                console.log(this.usertime)
+
+
+            }).catch(error=>{
+                console.log(error)
+            });
+            //查询总数
+
+            this.$axios.post('UserController/countusertime',this.$qs.stringify(
+                {
+
+                }
+            )).then(response=>{      //返回值部分
+                this.total = response.data
+                this.pagesizes.push(this.total)
 
             }).catch(error=>{
                 console.log(error)

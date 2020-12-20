@@ -42,6 +42,11 @@ public interface UserMapper {
      */
     @Select("select * from usertime")
     List<Usertime> selectusertime();
+    /**
+     * 查询用户登录的总数
+     */
+    @Select("select count(*) from usertime")
+    int countusertime();
 
 
 }

@@ -1,5 +1,6 @@
 package com.lwy.demo.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.lwy.demo.bean.User;
 
 import com.lwy.demo.bean.Usertime;
@@ -76,8 +77,16 @@ public class UserController {
     }
     @RequestMapping("/selectusertime")
     @ResponseBody
-    public List<Usertime> selectusertime() {
+    public List<Usertime> selectusertime(@RequestParam(defaultValue = "1") int pageNo,
+                                         @RequestParam(defaultValue = "8") int pageSize) {
+        PageHelper.startPage(pageNo,pageSize);
         return userService.selectusertime();
+    }
+
+    @RequestMapping("/countusertime")
+    @ResponseBody
+    public int countusertime() {
+        return userService.countusertime();
     }
 
 

@@ -257,4 +257,20 @@ public class AdminController {
 
         return adminService.selectallcarthistory();
     }
+
+
+
+    @ResponseBody
+    @RequestMapping(value = "/selectadmintime")
+    public List<Admintime> selectadmintime(@RequestParam(defaultValue = "1") int pageNo,
+                                           @RequestParam(defaultValue = "8") int pageSize) {
+        PageHelper.startPage(pageNo,pageSize);
+        return  adminService.selectadmintime();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/countadmintime")
+    public int countadmintime() {
+        return  adminService.countadmintime();
+    }
 }

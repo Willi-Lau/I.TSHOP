@@ -1,6 +1,7 @@
 package com.lwy.demo.service;
 
 import com.lwy.demo.bean.*;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -46,5 +47,9 @@ public interface AdminService {
     List<CartHistory> selectallcarthistory();
 
     void addadmintime(String username);
+
+    int countadmintime();
+
+    List<Admintime> selectadmintime();
 
 }

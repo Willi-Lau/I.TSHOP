@@ -4,6 +4,7 @@
         <Boss></Boss>
         <div class="boss_do">
             <br>
+
 <!--            条件查询界面-->
             <el-form :inline="true" :model="formInline" class="demo-form-inline">
                 <el-form-item label="id">
@@ -34,6 +35,16 @@
                     <el-button type="primary" @click="onSubmitInline">查询</el-button>
                 </el-form-item>
             </el-form>
+            <div>
+                <span style="margin-right: 50px">注意：编辑修改时请关闭排序功能 </span>
+                <span style="margin-right: 30px">
+                    库存低于150/80/30/10会有不同颜色提示</span>
+                    <el-color-picker v-model="color1" show-alpha size="small"></el-color-picker>
+                <el-color-picker v-model="color2" show-alpha size="small"></el-color-picker>
+                <el-color-picker v-model="color3" show-alpha size="small"></el-color-picker>
+                <el-color-picker v-model="color4" show-alpha size="small"></el-color-picker>
+
+            </div>
 
 
         </div>
@@ -83,7 +94,8 @@
          <div class="boss_all_clothes">
              <el-table
                      :data="allclothes"
-                     stripe
+                     :row-class-name="tableRowClassName"
+
                      style="width: 100%">
                  <el-table-column prop="id"
                                   label="id值"
@@ -108,6 +120,7 @@
                          label="价格"
                          width="180"/>
                  <el-table-column
+
                          sortable
                          prop="num"
                          label="库存数量"
@@ -165,6 +178,7 @@
 </template>
 <style scoped>
     @import "../css/BossLogin.css";
+
 </style>
 <script>
     import Boss from '../components/Boss'
@@ -173,6 +187,10 @@
         data(){
 
             return{
+                color4:'#470303',
+                color3:'#8d0e0e',
+                color2:'#e06a6a',
+                color1:'rgba(229, 166, 166, 0.63)',
                 pagesizes:[5,6,10],
                 pageSize:6,
                 total:1,
@@ -216,6 +234,21 @@
             Boss
         },
         methods:{
+            tableRowClassName({row, rowIndex}) {
+                if (row.num < 10) {
+                    return 'warning-row4';
+                }
+                else if (row.num < 30) {
+                    return 'warning-row3';
+                }
+                else if (row.num < 80) {
+                    return 'warning-row2';
+                }
+                else if (row.num < 150) {
+                    return 'warning-row1';
+                }
+                return '';
+            },
             //分页
             handleSizeChange(val) {
                 this.pageSize = val;

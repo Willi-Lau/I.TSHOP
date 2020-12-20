@@ -19,4 +19,6 @@ public interface UserService {
 
     List<Usertime> selectusertime();
 
+    int countusertime();
+
 }

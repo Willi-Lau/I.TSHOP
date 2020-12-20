@@ -129,5 +129,15 @@ public interface AdminMapper {
      */
     @Insert("insert into admintime(username) values (#{username})")
     void addadmintime(String username);
+    /**
+     * 查询管理员登陆时间总数
+     */
+    @Select("select count(*) from admintime")
+    int countadmintime();
+    /**
+     * 查询所有管理员登陆时间的信息
+     */
+    @Select("select * from admintime")
+    List<Admintime> selectadmintime();
 
 }

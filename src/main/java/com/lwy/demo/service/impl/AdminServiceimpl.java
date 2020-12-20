@@ -91,4 +91,14 @@ public class AdminServiceimpl implements AdminService {
     public void addadmintime(String username) {
         adminMapper.addadmintime(username);
     }
+
+    @Override
+    public int countadmintime() {
+        return  adminMapper.countadmintime();
+    }
+
+    @Override
+    public List<Admintime> selectadmintime() {
+        return  adminMapper.selectadmintime();
+    }
 }

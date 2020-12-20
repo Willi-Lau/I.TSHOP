@@ -49,4 +49,9 @@ public class UserServiceimpl implements UserService {
         return userMapper.selectusertime();
     }
 
+    @Override
+    public int countusertime() {
+        return userMapper.countusertime();
+    }
+
 }

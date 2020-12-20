@@ -6,6 +6,20 @@
     bottom: 0px;
    background-color: #dffff5;
 }
+.el-table .warning-row1 {
+    background: rgba(229, 166, 166, 0.63);
+}
+.el-table .warning-row2{
+    background: #e06a6a;
+}
+.el-table .warning-row3 {
+    background: #8d0e0e;
+}
+
+.el-table .warning-row4 {
+    background: #470303;
+}
+
 .boss_do{
 
     margin-bottom: 20px;

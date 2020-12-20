@@ -2,6 +2,7 @@ package com.lwy.demo.mapper;
 
 
 import com.lwy.demo.bean.Cart;
+import com.lwy.demo.bean.CartHistory;
 import com.lwy.demo.bean.Cart_Clothes;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -57,6 +58,11 @@ public interface CartMapper {
      */
     @Update("update user set grossmoney = #{grossmoney} where username = #{name}")
     void updategrossmoney(String name,int grossmoney);
+    /**
+     * 向购物车历史信息添加
+     */
+    @Insert("insert into carthistory(username,id,num,money,day,src) values (#{username},#{id},#{num},#{money},#{day},#{src})")
+    void addcarthistory(CartHistory cartHistory);
 
 
 

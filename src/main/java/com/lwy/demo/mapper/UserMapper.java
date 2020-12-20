@@ -2,8 +2,12 @@ package com.lwy.demo.mapper;
 
 
 import com.lwy.demo.bean.User;
+import com.lwy.demo.bean.Usertime;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface UserMapper {
@@ -23,6 +27,21 @@ public interface UserMapper {
      */
     @Select("select alive from user where username = #{username}")
     int aliveuser(String username);
+    /**
+     * 查询所有有的用户名
+     */
+    @Select("select username from user")
+    List<String> selectallusername();
+    /**
+     * 写入用户登陆时间
+     */
+    @Insert("insert into usertime(username) values (#{username})")
+    void addusertime(String username);
+    /**
+     * 查询所有用户登陆时间
+     */
+    @Select("select * from usertime")
+    List<Usertime> selectusertime();
 
 
 }

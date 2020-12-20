@@ -1,11 +1,14 @@
 package com.lwy.demo.service.impl;
 
 import com.lwy.demo.bean.User;
+import com.lwy.demo.bean.Usertime;
 import com.lwy.demo.mapper.UserMapper;
 import com.lwy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -29,6 +32,21 @@ public class UserServiceimpl implements UserService {
 
     public int aliveuser(String username){
         return userMapper.aliveuser(username);
+    }
+
+    @Override
+    public List<String> selectallusername() {
+        return userMapper.selectallusername();
+    }
+
+    @Override
+    public void addusertime(String username) {
+        userMapper.addusertime(username);
+    }
+
+    @Override
+    public List<Usertime> selectusertime() {
+        return userMapper.selectusertime();
     }
 
 }

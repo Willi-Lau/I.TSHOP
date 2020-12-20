@@ -177,6 +177,7 @@
 
             },
             paymoney(){
+                //
 
                 //向后台发送用户名，清空该用户的购物车信息
                 this.$axios.post('CartController/paycartclothes',this.$qs.stringify(

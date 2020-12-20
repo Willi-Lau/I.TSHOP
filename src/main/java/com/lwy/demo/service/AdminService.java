@@ -5,41 +5,46 @@ import com.lwy.demo.bean.*;
 import java.util.List;
 
 public interface AdminService {
-    public String selectadmin(String username);
+    String selectadmin(String username);
 
-    public List<Clothes> selectallclothespage();
+    List<Clothes> selectallclothespage();
 
-    public int countclothes();
+    int countclothes();
 
-    public Clothes_Admin selectbyid(String id);
+    Clothes_Admin selectbyid(String id);
 
-    public void modifyclothes(Clothes_Admin admin);
+    void modifyclothes(Clothes_Admin admin);
 
-    public List<User> alluserinf();
+    List<User> alluserinf();
 
-    public int countuser();
+    int countuser();
 
-    public List<Admin> alladmininf();
+    List<Admin> alladmininf();
 
-    public int countadmin();
+    int countadmin();
 
-    public int counttype(String type);
+    int counttype(String type);
 
-    public void insertclothes(AddClothes clothes);
+    void insertclothes(AddClothes clothes);
 
-    public String deleteclothes(int id);
+    String deleteclothes(int id);
 
-    public List<Clothes> typeselectclothes (AdminClothes clothes);
+    List<Clothes> typeselectclothes(AdminClothes clothes);
 
-    public int counttypeselectclothes (AdminClothes clothes);
+    int counttypeselectclothes(AdminClothes clothes);
 
-    public void changealive(String username ,int alive);
+    void changealive(String username, int alive);
 
-    public List<User> typeselectuser(AdminUser user);
+    List<User> typeselectuser(AdminUser user);
 
-    public int counttypeselectuser(AdminUser user);
+    int counttypeselectuser(AdminUser user);
 
-    public String [] alluserinfusername();
+    String [] alluserinfusername();
 
-    public String [] alluserinfgrossmoney();
+     String [] alluserinfgrossmoney();
+
+    List<CartHistory> selectallcarthistory();
+
+    void addadmintime(String username);
+
 }

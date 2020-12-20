@@ -81,4 +81,14 @@ public class AdminServiceimpl implements AdminService {
     public String [] alluserinfusername(){return  adminMapper.alluserinfusername();}
 
     public String [] alluserinfgrossmoney(){return  adminMapper.alluserinfgrossmoney();}
+
+    @Override
+    public List<CartHistory> selectallcarthistory() {
+        return adminMapper.selectallcarthistory();
+    }
+
+    @Override
+    public void addadmintime(String username) {
+        adminMapper.addadmintime(username);
+    }
 }

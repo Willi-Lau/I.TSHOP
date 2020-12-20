@@ -119,5 +119,15 @@ public interface AdminMapper {
      */
     @Select("select grossmoney from user ORDER BY  grossmoney desc")
     String [] alluserinfgrossmoney();
+    /**
+     * 查找所有购物车历史信息
+     */
+    @Select("select * from carthistory order by carthistoryid desc")
+    List<CartHistory> selectallcarthistory();
+    /**
+     * 写入管理员登陆时间
+     */
+    @Insert("insert into admintime(username) values (#{username})")
+    void addadmintime(String username);
 
 }

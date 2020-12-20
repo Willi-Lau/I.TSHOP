@@ -2,6 +2,7 @@ package com.lwy.demo.service.impl;
 
 
 import com.lwy.demo.bean.Cart;
+import com.lwy.demo.bean.CartHistory;
 import com.lwy.demo.bean.Cart_Clothes;
 import com.lwy.demo.mapper.CartMapper;
 import com.lwy.demo.mapper.ClothesMapper;
@@ -70,5 +71,12 @@ public class CartServiceompl implements CartService {
         cartMapper.updategrossmoney(name,newgrossmoney);
 
     }
+
+    @Override
+    public void addcarthistory(CartHistory cartHistory) {
+        cartMapper.addcarthistory(cartHistory);
+    }
+
+
 
 }

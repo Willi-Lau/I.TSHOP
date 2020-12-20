@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface ClothesService {
 
-    public List<Clothes> selectallclothes(String sex);
+    List<Clothes> selectallclothes(String sex);
 
-    public List<String> select_allclothesbrand();
+    List<String> select_allclothesbrand();
 
-    public int select_maxmoney();
+    int select_maxmoney();
 
-    public List<Clothes> select_dreamclothes(Clothes_type clothes_type);
+    List<Clothes> select_dreamclothes(Clothes_type clothes_type);
 
 }

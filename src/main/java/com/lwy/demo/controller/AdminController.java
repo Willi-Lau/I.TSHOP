@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 @CrossOrigin
@@ -68,6 +70,8 @@ public class AdminController {
             String selecpassword = adminService.selectadmin(username);
             if (selecpassword.equals(password)){
                 inf = "yes";
+                //写入当前登陆时间      MYSQL自动记录时间，传入名字就可以
+                adminService.addadmintime(username);
             }
             else {
                 inf = "no";
@@ -245,4 +249,12 @@ public class AdminController {
         user.setUsername(username);
 
         return  adminService.counttypeselectuser(user);}
+
+    //查询历史记录
+    @ResponseBody
+    @RequestMapping(value = "/selectallcarthistory")
+    public List<CartHistory> selectallcarthistory() {
+
+        return adminService.selectallcarthistory();
+    }
 }

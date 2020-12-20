@@ -1,13 +1,22 @@
 package com.lwy.demo.service;
 
 import com.lwy.demo.bean.User;
+import com.lwy.demo.bean.Usertime;
+
+import java.util.List;
 
 public interface UserService {
 
-    public void adduserinformation(User user);
+    void adduserinformation(User user);
 
-    public String checkupdate(String name);
+    String checkupdate(String name);
 
-    public int aliveuser(String username);
+    int aliveuser(String username);
+
+    List<String> selectallusername();
+
+    void addusertime(String username);
+
+    List<Usertime> selectusertime();
 
 }

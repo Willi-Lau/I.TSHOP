@@ -37,7 +37,8 @@
 
                             <el-menu-item-group >
                                 <el-menu-item index="2-3" @click="goBossUser">用户名单</el-menu-item>
-<!--                                <el-menu-item index="2-4" @click="goBossUserpoint">可视化数据</el-menu-item>-->
+                                <el-menu-item index="2-4" @click="goBossUserCartHistory">用户消费历史记录</el-menu-item>
+                                <el-menu-item index="2-5" @click="goUsertime">用户登陆历史</el-menu-item>
                             </el-menu-item-group>
 
                         </el-submenu>
@@ -49,7 +50,9 @@
 
                             <el-menu-item-group >
                                 <el-menu-item index="3-3" @click="goadmininf">管理员信息</el-menu-item>
+                                <el-menu-item index="3-4" @click="goadmintime">管理员登陆历史</el-menu-item>
                             </el-menu-item-group>
+
 
                         </el-submenu>
 
@@ -104,6 +107,15 @@
 
         },
         methods:{
+            goUsertime(){
+                this.$router.push("/BossUsertime");
+            },
+            goadmintime(){
+                this.$router.push("/BossAdmintime");
+            },
+            goBossUserCartHistory(){
+                this.$router.push("/BossUserCartHistory");
+            },
             goBossUserpoint(){
                 this.$router.push("/BossUserPoint");
             },

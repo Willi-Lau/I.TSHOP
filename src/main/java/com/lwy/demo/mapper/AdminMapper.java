@@ -137,7 +137,7 @@ public interface AdminMapper {
     /**
      * 查询所有管理员登陆时间的信息
      */
-    @Select("select * from admintime")
+    @Select("select * from admintime order by id desc")
     List<Admintime> selectadmintime();
 
 }

@@ -40,7 +40,7 @@ public interface UserMapper {
     /**
      * 查询所有用户登陆时间
      */
-    @Select("select * from usertime")
+    @Select("select * from usertime order by id desc")
     List<Usertime> selectusertime();
     /**
      * 查询用户登录的总数

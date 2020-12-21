@@ -97,22 +97,22 @@
                                 confirmButtonText: '确定',
                                 type:"error"
                             });}
-                            if(reponse.data === "no") {
-                                // this.$alert('请重新填写', '账号或密码错误', {
-                                //   confirmButtonText: '确定',
-                                //
-                                // });
-                                this.$notify.error({
-                                    title: '错误',
-                                    message: '账号或密码错误，请重新填写'
-                                });
-                                this.$alert('请重新登录', '登陆失败', {
-                                    confirmButtonText: '确定',
-                                    type: "error"
-                                });
+                        if(reponse.data === "no") {
+                            // this.$alert('请重新填写', '账号或密码错误', {
+                            //   confirmButtonText: '确定',
+                            //
+                            // });
+                            this.$notify.error({
+                                title: '错误',
+                                message: '账号或密码错误，请重新填写'
+                            });
+                            this.$alert('请重新登录', '登陆失败', {
+                                confirmButtonText: '确定',
+                                type: "error"
+                            });
 
 
-                            }
+                        }
                     }).catch(error=>{
 
                     })
@@ -147,8 +147,17 @@
                             this.$notify({
                                 title: '成功',
                                 message: '登陆成功',
-                                type: 'success'
+                                type: 'success',
+                                position:"bottom-right"
+
+
                             });
+                            this.$alert('登陆成功', '登陆成功', {
+                                confirmButtonText: '确定',
+                                type: "success"
+                            }
+                            );
+
                             this.$router.push({path:"/BossLogin",
                                 query:{
                                     name:this.form.name

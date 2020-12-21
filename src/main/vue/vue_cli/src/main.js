@@ -5,19 +5,19 @@ import axios from 'axios'
 import qs from 'qs'
 import $ from 'jquery'
 import store from './store'
-// import VCharts from 'v-charts'
+import './plugins/element.js'
+
 
 import ElementUI from 'element-ui';
-import ChartJS from 'chart.js';
+
 
 
 import 'element-ui/lib/theme-chalk/index.css';
 
 //全局使用
 Vue.use(ElementUI);
-// Vue.use(ChartJS);
-// Vue.use(ViewUI);
-// Vue.use(VCharts)
+
+
 
 Vue.config.productionTip = false
 

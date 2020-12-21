@@ -3,8 +3,11 @@ package com.lwy.demo.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.lwy.demo.bean.*;
+import com.lwy.demo.service.AdminService;
 import com.lwy.demo.service.impl.AdminServiceimpl;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -21,19 +24,22 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping(value = "/AdminController")
 @Controller
+@Api(tags = "所有后台 管理员端的Controller")
 public class AdminController {
 
     @Autowired
-    private AdminServiceimpl adminService;
+    private AdminService adminService;
 
-    //条件查询
-    @RequestMapping("/typeselectclothes")
+
+    @RequestMapping(value = "/typeselectclothes",method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation("根据传递进来的id,brand,type进行查询。空则查询所有")
     public List<Clothes> typeselectclothes(@RequestParam(value = "form[id]") int id,
                                            @RequestParam(value = "form[brand]") String brand,
                                            @RequestParam(value = "form[type]") String type,
                                            @RequestParam(defaultValue = "1") int pageNo,
                                            @RequestParam(defaultValue = "6") int pageSize
+
     ){
         PageHelper.startPage(pageNo,pageSize);
         AdminClothes clothes = new AdminClothes();
@@ -46,8 +52,9 @@ public class AdminController {
 
 
     }
-    //条件查询时的条数
-    @RequestMapping("/counttypeselectclothes")
+
+    @ApiOperation("根据传递进来的id,brand,type进行查询时数据的个数")
+    @RequestMapping(value = "/counttypeselectclothes",method = RequestMethod.POST)
     @ResponseBody
     public int counttypeselectclothes (@RequestParam(value = "form[id]",defaultValue = "0") int id,
                                        @RequestParam(value = "form[brand]") String brand,
@@ -61,12 +68,13 @@ public class AdminController {
         return adminService.counttypeselectclothes(clothes);
     }
 
-    //查询管理员账户密码是否正确
-    @RequestMapping("/selectadmin")
+
+    @ApiOperation("查询管理员账户密码是否正确")
+    @RequestMapping(value = "/selectadmin",method = RequestMethod.POST)
     @ResponseBody
     public String selectadmin(@RequestParam(value = "form[password]") String password ,@RequestParam(value = "form[name]") String username){
         String inf ="no";
-        try {
+
             String selecpassword = adminService.selectadmin(username);
             if (selecpassword.equals(password)){
                 inf = "yes";
@@ -76,14 +84,13 @@ public class AdminController {
             else {
                 inf = "no";
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
         return inf;
     }
 
-    @RequestMapping(value = "/selectallclothes")
+    @ApiOperation("分页查询所有的衣服")
+    @RequestMapping(value = "/selectallclothes",method = RequestMethod.POST)
     @ResponseBody
     public List<Clothes> selectallclothes(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "6") int pageSize){
         //pageNo 是要查询的页数，现在每一页有6个数据
@@ -94,22 +101,22 @@ public class AdminController {
 
     }
 
-
-    @RequestMapping(value = "/countclothes")
+    @ApiOperation("查蓄奴所有衣服的数量")
+    @RequestMapping(value = "/countclothes",method = RequestMethod.POST)
     @ResponseBody
     public int countclothes(){
         return  adminService.countclothes();
     }
 
-
-    @RequestMapping(value = "/selectbyid")
+    @ApiOperation("根据指定id查询")
+    @RequestMapping(value = "/selectbyid",method = RequestMethod.POST)
     @ResponseBody
     public Clothes_Admin selectbyid(String id){
         return adminService.selectbyid(id);
     };
 
-
-    @RequestMapping(value = "/modifyclothes")
+    @ApiOperation("修改衣服属性")
+    @RequestMapping(value = "/modifyclothes",method = RequestMethod.POST)
     @ResponseBody
     public void midifyclothes(HttpServletRequest request){
         Clothes_Admin admin = new Clothes_Admin();
@@ -122,7 +129,8 @@ public class AdminController {
         adminService.modifyclothes(admin);
     }
 
-    @RequestMapping(value = "/alluserinf")
+    @ApiOperation("查询所有的用户信息 分页")
+    @RequestMapping(value = "/alluserinf",method = RequestMethod.POST)
     @ResponseBody
     public List<User> alluserinf(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "8") int pageSize){
         PageHelper.startPage(pageNo,pageSize);
@@ -130,7 +138,9 @@ public class AdminController {
         System.out.println(list);
         return list;
     }
-    @RequestMapping(value = "/alluserinfnotpage")
+
+    @ApiOperation("查询所有用户信息，不分页")
+    @RequestMapping(value = "/alluserinfnotpage",method = RequestMethod.POST)
     @ResponseBody
     public List<User> alluserinfnotpage(){
 
@@ -138,30 +148,36 @@ public class AdminController {
 
         return list;
     }
-    @RequestMapping(value = "/alluserinfusername")
+
+    @ApiOperation("查找所有的用户名")
+    @RequestMapping(value = "/alluserinfusername",method = RequestMethod.POST)
     @ResponseBody
     public String [] alluserinfusername(){return  adminService.alluserinfusername();}
 
-    @RequestMapping(value = "/alluserinfgrossmoney")
+    @ApiOperation("查找所有的消费")
+    @RequestMapping(value = "/alluserinfgrossmoney",method = RequestMethod.POST)
     @ResponseBody
     public String [] alluserinfgrossmoney(){return  adminService.alluserinfgrossmoney();}
 
-    @RequestMapping(value = "/countuser")
+    @ApiOperation("统计用户个数")
+    @RequestMapping(value = "/countuser",method = RequestMethod.POST)
     @ResponseBody
     public int countuser(){
         return adminService.countuser();
     }
 
-    @RequestMapping(value = "/alladmininf")
+    @ApiOperation("所有管理员信息")
+    @RequestMapping(value = "/alladmininf",method = RequestMethod.POST)
     @ResponseBody
     public List<Admin> alladmininf(){return adminService.alladmininf();}
 
-    @RequestMapping(value = "/countadmin")
+    @ApiOperation("统计管理员个数")
+    @RequestMapping(value = "/countadmin",method = RequestMethod.POST)
     @ResponseBody
     public int countadmin(){return  adminService.countadmin();}
 
-    //上传文件
-    //单文件上传
+
+    @ApiOperation("上传衣服的信息 单文件上传")
     @RequestMapping(value = "/load",method = RequestMethod.POST)
     @ResponseBody
     public void load(HttpServletRequest request,MultipartFile uploadFile) throws IOException {
@@ -201,8 +217,10 @@ public class AdminController {
         //把文件信息写入数据库
         adminService.insertclothes(addClothes);
     }
+
+    @ApiOperation("删除衣服 IO删除")
     @ResponseBody
-    @RequestMapping(value = "/deleteclothes")
+    @RequestMapping(value = "/deleteclothes",method = RequestMethod.POST)
     public void deleteclothes(String id){
         //在数据库中删除 返回文件的路径
         String filesrc = adminService.deleteclothes(Integer.parseInt(id));
@@ -218,15 +236,16 @@ public class AdminController {
         }
     }
 
-    //改变用户状态
+    @ApiOperation("改变用户是否禁用")
     @ResponseBody
-    @RequestMapping(value = "/changealive")
+    @RequestMapping(value = "/changealive",method = RequestMethod.POST)
     public void changealive(String username,int alive){
         adminService.changealive(username,alive);
     }
-   //条件查询用户时
+
+    @ApiOperation("根据用户信息查询 空则查询所有")
     @ResponseBody
-    @RequestMapping(value = "/typeselectuser")
+    @RequestMapping(value = "/typeselectuser",method = RequestMethod.POST)
     public List<User> typeselectuser(@RequestParam(defaultValue = "1") int pageNo,
                                      @RequestParam(defaultValue = "8") int pageSize,
                                      @RequestParam(value = "form[username]") String username,
@@ -239,9 +258,9 @@ public class AdminController {
 
         return  adminService.typeselectuser(user);}
 
-    //条件查询用户 返回数量
+    @ApiOperation("条件查询用户返回数量")
     @ResponseBody
-    @RequestMapping(value = "/counttypeselectuser")
+    @RequestMapping(value = "/counttypeselectuser",method = RequestMethod.POST)
     public int counttypeselectuser(@RequestParam(value = "form[username]") String username,
                                    @RequestParam(value = "form[name]") String name){
         AdminUser user = new AdminUser();
@@ -250,26 +269,26 @@ public class AdminController {
 
         return  adminService.counttypeselectuser(user);}
 
-    //查询历史记录
+    @ApiOperation("查询购物车历史记录")
     @ResponseBody
-    @RequestMapping(value = "/selectallcarthistory")
+    @RequestMapping(value = "/selectallcarthistory",method = RequestMethod.POST)
     public List<CartHistory> selectallcarthistory() {
 
         return adminService.selectallcarthistory();
     }
 
 
-
+    @ApiOperation("查询管理员历史登陆")
     @ResponseBody
-    @RequestMapping(value = "/selectadmintime")
+    @RequestMapping(value = "/selectadmintime",method = RequestMethod.POST)
     public List<Admintime> selectadmintime(@RequestParam(defaultValue = "1") int pageNo,
                                            @RequestParam(defaultValue = "8") int pageSize) {
         PageHelper.startPage(pageNo,pageSize);
         return  adminService.selectadmintime();
     }
-
+    @ApiOperation("统计管理员历史登录条数")
     @ResponseBody
-    @RequestMapping(value = "/countadmintime")
+    @RequestMapping(value = "/countadmintime",method = RequestMethod.POST)
     public int countadmintime() {
         return  adminService.countadmintime();
     }

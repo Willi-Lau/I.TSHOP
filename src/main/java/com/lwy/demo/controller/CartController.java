@@ -5,7 +5,10 @@ import com.lwy.demo.bean.Cart;
 import com.lwy.demo.bean.CartHistory;
 import com.lwy.demo.bean.Cart_Clothes;
 
+import com.lwy.demo.service.CartService;
 import com.lwy.demo.service.impl.CartServiceompl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +21,14 @@ import java.util.List;
 @RequestMapping(value = "/CartController")
 @Controller
 @CrossOrigin
+@Api(tags ="购物车端的Controller")
 public class CartController {
 
     @Autowired
-    private CartServiceompl cartService;
+    private CartService cartService;
 
-    @RequestMapping("/paycartclothes")
+    @ApiOperation("支付钱，删除数据库里购物车信息，添加到历史购物车中")
+    @RequestMapping(value = "/paycartclothes",method = RequestMethod.POST)
     @ResponseBody
     public void paycartclothes(String name){
          //查询购物车所有的货物
@@ -54,7 +59,8 @@ public class CartController {
 
     }
 
-    @RequestMapping("/changecartclothes")
+    @ApiOperation("修改购物车")
+    @RequestMapping(value = "/changecartclothes",method = RequestMethod.POST)
     @ResponseBody
     public void changecartclothes(HttpServletRequest request){
         Cart cart = new Cart();
@@ -64,8 +70,8 @@ public class CartController {
         cartService.changecartclothes(cart);
     }
 
-
-    @RequestMapping("/selectcartclothes")
+    @ApiOperation("查看指定用户购物车")
+    @RequestMapping(value = "/selectcartclothes",method = RequestMethod.POST)
     @ResponseBody
     public List<Cart_Clothes> selectcartclothes(String name){
         List<Cart_Clothes> list = null;
@@ -74,8 +80,8 @@ public class CartController {
         return list;
     }
 
-
-    @RequestMapping("/addtocart")
+    @ApiOperation("添加到购物车")
+    @RequestMapping(value = "/addtocart",method = RequestMethod.POST)
     @ResponseBody
     public void addtocart(HttpServletRequest request){
 
@@ -85,7 +91,9 @@ public class CartController {
         cart.setUsername(request.getParameter("name"));
         cartService.addtocart(cart);
     }
-    @RequestMapping("/grossmoney")
+
+    @ApiOperation("修改指定用户总消费")
+    @RequestMapping(value = "/grossmoney",method = RequestMethod.POST)
     @ResponseBody
     public void grossmoney(String name,int grossmoney){
         cartService.grossmoney(name,grossmoney);

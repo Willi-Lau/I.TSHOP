@@ -181,8 +181,10 @@
 
 </style>
 <script>
+    import { Notification } from 'element-ui';
     import Boss from '../components/Boss'
     import $ from 'jquery'
+
     export default {
         data(){
 

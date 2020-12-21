@@ -1,7 +1,7 @@
 <template>
     <div class="boss">
          <div class="boss_header">
-                <span class="boss_header_it">I.T后台管理系统</span>
+                <span class="boss_header_it" >I.T后台管理系统</span>
          </div>
          <div class="boss_left">
             <el-row class="tac">
@@ -18,7 +18,7 @@
                             active-text-color="#ffd04b">
                         <el-submenu index="1">
                             <template slot="title">
-                                <i class="el-icon-location"></i>
+                                <i class="el-icon-s-operation"></i>
                                 <span>服装仓库</span>
                             </template>
 
@@ -31,7 +31,7 @@
                         </el-submenu>
                         <el-submenu index="2">
                             <template slot="title">
-                                <i class="el-icon-location"></i>
+                                <i class="el-icon-s-custom"></i>
                                 <span>用户管理</span>
                             </template>
 
@@ -44,7 +44,7 @@
                         </el-submenu>
                         <el-submenu index="3">
                             <template slot="title">
-                                <i class="el-icon-location"></i>
+                                <i class="el-icon-video-camera-solid"></i>
                                 <span>管理员</span>
                             </template>
 
@@ -58,7 +58,7 @@
 
                         <el-submenu index="4">
                             <template slot="title">
-                                <i class="el-icon-location"></i>
+                                <i class="el-icon-loading"></i>
                                 <span>可视化数据</span>
                             </template>
 
@@ -69,7 +69,7 @@
                         </el-submenu>
                         <el-submenu index="5">
                             <template slot="title">
-                                <i class="el-icon-location"></i>
+                                <i class="el-icon-map-location"></i>
                                 <span>跳转</span>
                             </template>
 
@@ -82,8 +82,8 @@
                 </el-col>
             </el-row>
         </div>
-        <div class="boss_header_2">
-             <sapn>welcome {{name}}</sapn>
+        <div class="boss_header_2" >
+             <span>welcome {{name}}</span>
         </div>
 
 

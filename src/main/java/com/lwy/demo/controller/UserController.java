@@ -4,7 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.lwy.demo.bean.User;
 
 import com.lwy.demo.bean.Usertime;
+import com.lwy.demo.service.UserService;
 import com.lwy.demo.service.impl.UserServiceimpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +18,14 @@ import java.util.List;
 @RequestMapping(value = "/UserController")
 @Controller
 @CrossOrigin
+@Api(tags ="用户信息Controller")
 public class UserController {
 
     @Autowired
-    private UserServiceimpl userService;
+    private UserService userService;
 
-    @RequestMapping("/adduserinformation")
+    @ApiOperation("把注册的信息存入数据库")
+    @RequestMapping(value = "/adduserinformation",method = RequestMethod.POST)
     @ResponseBody
     public void adduserinformation(HttpServletRequest request){
         User user = new User();
@@ -36,7 +41,8 @@ public class UserController {
         userService.adduserinformation(user);
     }
 
-    @RequestMapping("/checkupdate")
+    @ApiOperation("查询登陆账户密码是否正确")
+    @RequestMapping(value = "/checkupdate",method = RequestMethod.POST)
     @ResponseBody
     public String checkupdate(@RequestParam(value = "form[password]") String password_from_form, @RequestParam(value = "form[name]")String name){
 
@@ -75,15 +81,16 @@ public class UserController {
 
 
     }
-    @RequestMapping("/selectusertime")
+    @ApiOperation("查询用户登陆历史")
+    @RequestMapping(value = "/selectusertime",method = RequestMethod.POST)
     @ResponseBody
     public List<Usertime> selectusertime(@RequestParam(defaultValue = "1") int pageNo,
                                          @RequestParam(defaultValue = "8") int pageSize) {
         PageHelper.startPage(pageNo,pageSize);
         return userService.selectusertime();
     }
-
-    @RequestMapping("/countusertime")
+    @ApiOperation("查询用户登陆历史条数")
+    @RequestMapping(value = "/countusertime",method = RequestMethod.POST)
     @ResponseBody
     public int countusertime() {
         return userService.countusertime();

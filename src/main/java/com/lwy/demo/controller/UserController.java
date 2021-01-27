@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 
 @RequestMapping(value = "/UserController")
@@ -27,16 +28,17 @@ public class UserController {
     @ApiOperation("把注册的信息存入数据库")
     @RequestMapping(value = "/adduserinformation",method = RequestMethod.POST)
     @ResponseBody
-    public void adduserinformation(HttpServletRequest request){
-        User user = new User();
-        user.setUsername(request.getParameter("form[username]"));
-        user.setPassword(request.getParameter("form[password]"));
-        user.setName(request.getParameter("form[name]"));
-        user.setBirthday(request.getParameter("form[birthday]"));
-        user.setSex(request.getParameter("form[sex]"));
-        user.setPhone(request.getParameter("form[phone]"));
-        user.setAddress(request.getParameter("form[address]"));
-        user.setEmail(request.getParameter("form[email]"));
+    public void adduserinformation(@RequestBody  User user){
+
+//        User user = new User();
+//        user.setUsername(request.getParameter("form[username]"));
+//        user.setPassword(request.getParameter("form[password]"));
+//        user.setName(request.getParameter("form[name]"));
+//        user.setBirthday(request.getParameter("form[birthday]"));
+//        user.setSex(request.getParameter("form[sex]"));
+//        user.setPhone(request.getParameter("form[phone]"));
+//        user.setAddress(request.getParameter("form[address]"));
+//        user.setEmail(request.getParameter("form[email]"));
 
         userService.adduserinformation(user);
     }

@@ -60,13 +60,16 @@ public class CartController {
     }
 
     @ApiOperation("修改购物车")
-    @RequestMapping(value = "/changecartclothes",method = RequestMethod.POST)
+    @RequestMapping(value = "/changecartclothes")
     @ResponseBody
-    public void changecartclothes(HttpServletRequest request){
+    public void changecartclothes(@RequestParam(value = "clothes_id") int id,int num,String name){
         Cart cart = new Cart();
-        cart.setId(Integer.parseInt(request.getParameter("clothes_id")));
-        cart.setNum(Integer.parseInt(request.getParameter("num")));
-        cart.setUsername(request.getParameter("name"));
+//        cart.setId(Integer.parseInt(request.getParameter("clothes_id")));
+//        cart.setNum(Integer.parseInt(request.getParameter("num")));
+//        cart.setUsername(request.getParameter("name"));
+        cart.setId(id);
+        cart.setNum(num);
+        cart.setUsername(name);
         cartService.changecartclothes(cart);
     }
 
@@ -83,12 +86,15 @@ public class CartController {
     @ApiOperation("添加到购物车")
     @RequestMapping(value = "/addtocart",method = RequestMethod.POST)
     @ResponseBody
-    public void addtocart(HttpServletRequest request){
+    public void addtocart(int id,int cart_num,String name){
 
         Cart cart = new Cart();
-        cart.setId(Integer.parseInt(request.getParameter("id")));
-        cart.setNum(Integer.parseInt(request.getParameter("cart_num")));
-        cart.setUsername(request.getParameter("name"));
+//        cart.setId(Integer.parseInt(request.getParameter("id")));
+//        cart.setNum(Integer.parseInt(request.getParameter("cart_num")));
+//        cart.setUsername(request.getParameter("name"));
+        cart.setId(id);
+        cart.setNum(cart_num);
+        cart.setUsername(name);
         cartService.addtocart(cart);
     }
 

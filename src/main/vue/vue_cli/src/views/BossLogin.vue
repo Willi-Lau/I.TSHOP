@@ -412,9 +412,12 @@
                         //执行正确操作
 
                         this.$axios.post('AdminController/modifyclothes',   //URL首字母必须是大写不然会出错
-                            this.$qs.stringify({       //传参部分 使用q
-                                'form':this.ruleForm
-                            })).then(response=>{      //返回值部分
+                            // this.$qs.stringify(
+                            //     {       //传参部分 使用q
+                            //     'form':this.ruleForm
+                            // })
+                            this.ruleForm
+                        ).then(response=>{      //返回值部分
                             console.log(response.data)
                         }).catch(error=>{
                             console.log(error)

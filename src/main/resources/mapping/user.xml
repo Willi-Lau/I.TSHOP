@@ -6,7 +6,8 @@
 <!--    执行增加操作-->
     <insert id="adduser" parameterType="com.lwy.demo.bean.User">
 
-         insert into user  values(#{username},#{password},#{name},#{birthday},#{sex},#{address},#{email},0,1)
+         insert into user  (username,password,name,birthday,sex,address,email,grossmoney,alive)
+         values(#{username},#{password},#{name},#{birthday},#{sex},#{address},#{email},0,1)
 
     </insert>
 

@@ -221,6 +221,7 @@
                 women_clothes:{},
                 baby_clothes:{},
                 num:1,
+                form2:{},
 
                 brand_clothes:{},
                 max_money:'',
@@ -248,11 +249,14 @@
                 this.brand_clothes_inf.cart_num = 0;
                 //条件查询衣服
 
-                this.$axios.post('ClothesController/select_dreamclothes',this.$qs.stringify(
+                this.$axios.post('ClothesController/select_dreamclothes',
+                    this.$qs.stringify(
                     {
                         form:this.form
                     }
-                )).then(response=>{      //返回值部分
+                )
+
+            ).then(response=>{      //返回值部分
                     this.brand_clothes_inf = response.data;
                     //把拿到的每个图片的格式转换为VUE可识别正确格式
                     for(let i=0;i<this.brand_clothes_inf.length;i++){
@@ -520,8 +524,8 @@
                 this.$axios.post('CartController/addtocart',this.$qs.stringify(
                     {
                         name:this.name,
-                        cart_num:cart_num,
-                        id:id
+                    cart_num:cart_num,
+                    id:id
                     }
                 )).then(response=>{
                 }).catch(error=>{
@@ -553,11 +557,15 @@
             onSubmit() {
                 //条件查询衣服
 
-                this.$axios.post('ClothesController/select_dreamclothes',this.$qs.stringify(
+
+                this.$axios.post('ClothesController/select_dreamclothes',
+                    this.$qs.stringify(
                     {
                         form:this.form
                     }
-                )).then(response=>{      //返回值部分
+                )
+
+                ).then(response=>{      //返回值部分
                     this.brand_clothes_inf = response.data;
                     //把拿到的每个图片的格式转换为VUE可识别正确格式
                     for(let i=0;i<this.brand_clothes_inf.length;i++){

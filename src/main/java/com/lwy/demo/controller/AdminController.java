@@ -118,14 +118,14 @@ public class AdminController {
     @ApiOperation("修改衣服属性")
     @RequestMapping(value = "/modifyclothes",method = RequestMethod.POST)
     @ResponseBody
-    public void midifyclothes(HttpServletRequest request){
-        Clothes_Admin admin = new Clothes_Admin();
-        admin.setId(Integer.parseInt(request.getParameter("form[id]")));
-        admin.setMoney(Integer.parseInt(request.getParameter("form[money]")));
-        admin.setNum(Integer.parseInt(request.getParameter("form[num]")));
-        admin.setBrand(request.getParameter("form[brand]"));
-        admin.setInfo(request.getParameter("form[info]"));
-        admin.setType(request.getParameter("form[type]"));
+    public void midifyclothes(@RequestBody  Clothes_Admin admin){
+//        Clothes_Admin admin = new Clothes_Admin();
+//        admin.setId(Integer.parseInt(request.getParameter("form[id]")));
+//        admin.setMoney(Integer.parseInt(request.getParameter("form[money]")));
+//        admin.setNum(Integer.parseInt(request.getParameter("form[num]")));
+//        admin.setBrand(request.getParameter("form[brand]"));
+//        admin.setInfo(request.getParameter("form[info]"));
+//        admin.setType(request.getParameter("form[type]"));
         adminService.modifyclothes(admin);
     }
 
@@ -180,15 +180,15 @@ public class AdminController {
     @ApiOperation("上传衣服的信息 单文件上传")
     @RequestMapping(value = "/load",method = RequestMethod.POST)
     @ResponseBody
-    public void load(HttpServletRequest request,MultipartFile uploadFile) throws IOException {
+    public void load( AddClothes addClothes ,MultipartFile uploadFile) throws IOException {
 
-        AddClothes addClothes = new AddClothes();
-
-        addClothes.setMoney(Integer.parseInt(request.getParameter("money")));
-        addClothes.setNum(Integer.parseInt(request.getParameter("num")));
-        addClothes.setBrand(request.getParameter("brand"));
-        addClothes.setInfo(request.getParameter("info"));
-        addClothes.setType(request.getParameter("type"));
+//        AddClothes addClothes = new AddClothes();
+//
+//        addClothes.setMoney(Integer.parseInt(request.getParameter("money")));
+//        addClothes.setNum(Integer.parseInt(request.getParameter("num")));
+//        addClothes.setBrand(request.getParameter("brand"));
+//        addClothes.setInfo(request.getParameter("info"));
+//        addClothes.setType(request.getParameter("type"));
 
         //获取文件名字
         String originalFilename = uploadFile.getOriginalFilename();

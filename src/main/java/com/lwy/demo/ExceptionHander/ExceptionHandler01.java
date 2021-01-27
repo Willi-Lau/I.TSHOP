@@ -46,7 +46,7 @@ public class ExceptionHandler01 {
     @ResponseBody
     private String exceptionHandler(Exception e){
 
-//        e.printStackTrace();
+        e.printStackTrace();
         System.out.println("Exception异常！！！");
         return "no";
 

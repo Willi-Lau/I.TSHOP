@@ -23,8 +23,8 @@ import java.util.List;
 
 @CrossOrigin
 @RequestMapping(value = "/AdminController")
-@Controller
 @Api(tags = "所有后台 管理员端的Controller")
+@RestController
 public class AdminController {
 
     @Autowired
@@ -32,7 +32,6 @@ public class AdminController {
 
 
     @RequestMapping(value = "/typeselectclothes",method = RequestMethod.POST)
-    @ResponseBody
     @ApiOperation("根据传递进来的id,brand,type进行查询。空则查询所有")
     public List<Clothes> typeselectclothes(@RequestParam(value = "form[id]") int id,
                                            @RequestParam(value = "form[brand]") String brand,
@@ -55,7 +54,6 @@ public class AdminController {
 
     @ApiOperation("根据传递进来的id,brand,type进行查询时数据的个数")
     @RequestMapping(value = "/counttypeselectclothes",method = RequestMethod.POST)
-    @ResponseBody
     public int counttypeselectclothes (@RequestParam(value = "form[id]",defaultValue = "0") int id,
                                        @RequestParam(value = "form[brand]") String brand,
                                        @RequestParam(value = "form[type]") String type
@@ -71,7 +69,6 @@ public class AdminController {
 
     @ApiOperation("查询管理员账户密码是否正确")
     @RequestMapping(value = "/selectadmin",method = RequestMethod.POST)
-    @ResponseBody
     public String selectadmin(@RequestParam(value = "form[password]") String password ,@RequestParam(value = "form[name]") String username){
         String inf ="no";
 
@@ -91,7 +88,6 @@ public class AdminController {
 
     @ApiOperation("分页查询所有的衣服")
     @RequestMapping(value = "/selectallclothes",method = RequestMethod.POST)
-    @ResponseBody
     public List<Clothes> selectallclothes(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "6") int pageSize){
         //pageNo 是要查询的页数，现在每一页有6个数据
         //根据传递进来的pageNo 返回数据
@@ -103,35 +99,24 @@ public class AdminController {
 
     @ApiOperation("查蓄奴所有衣服的数量")
     @RequestMapping(value = "/countclothes",method = RequestMethod.POST)
-    @ResponseBody
     public int countclothes(){
         return  adminService.countclothes();
     }
 
     @ApiOperation("根据指定id查询")
     @RequestMapping(value = "/selectbyid",method = RequestMethod.POST)
-    @ResponseBody
     public Clothes_Admin selectbyid(String id){
         return adminService.selectbyid(id);
     };
 
     @ApiOperation("修改衣服属性")
     @RequestMapping(value = "/modifyclothes",method = RequestMethod.POST)
-    @ResponseBody
     public void midifyclothes(@RequestBody  Clothes_Admin admin){
-//        Clothes_Admin admin = new Clothes_Admin();
-//        admin.setId(Integer.parseInt(request.getParameter("form[id]")));
-//        admin.setMoney(Integer.parseInt(request.getParameter("form[money]")));
-//        admin.setNum(Integer.parseInt(request.getParameter("form[num]")));
-//        admin.setBrand(request.getParameter("form[brand]"));
-//        admin.setInfo(request.getParameter("form[info]"));
-//        admin.setType(request.getParameter("form[type]"));
         adminService.modifyclothes(admin);
     }
 
     @ApiOperation("查询所有的用户信息 分页")
     @RequestMapping(value = "/alluserinf",method = RequestMethod.POST)
-    @ResponseBody
     public List<User> alluserinf(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "8") int pageSize){
         PageHelper.startPage(pageNo,pageSize);
         List<User> list = adminService.alluserinf();
@@ -141,7 +126,6 @@ public class AdminController {
 
     @ApiOperation("查询所有用户信息，不分页")
     @RequestMapping(value = "/alluserinfnotpage",method = RequestMethod.POST)
-    @ResponseBody
     public List<User> alluserinfnotpage(){
 
         List<User> list = adminService.alluserinf();
@@ -151,44 +135,30 @@ public class AdminController {
 
     @ApiOperation("查找所有的用户名")
     @RequestMapping(value = "/alluserinfusername",method = RequestMethod.POST)
-    @ResponseBody
     public String [] alluserinfusername(){return  adminService.alluserinfusername();}
 
     @ApiOperation("查找所有的消费")
     @RequestMapping(value = "/alluserinfgrossmoney",method = RequestMethod.POST)
-    @ResponseBody
     public String [] alluserinfgrossmoney(){return  adminService.alluserinfgrossmoney();}
 
     @ApiOperation("统计用户个数")
     @RequestMapping(value = "/countuser",method = RequestMethod.POST)
-    @ResponseBody
     public int countuser(){
         return adminService.countuser();
     }
 
     @ApiOperation("所有管理员信息")
     @RequestMapping(value = "/alladmininf",method = RequestMethod.POST)
-    @ResponseBody
     public List<Admin> alladmininf(){return adminService.alladmininf();}
 
     @ApiOperation("统计管理员个数")
     @RequestMapping(value = "/countadmin",method = RequestMethod.POST)
-    @ResponseBody
     public int countadmin(){return  adminService.countadmin();}
 
 
     @ApiOperation("上传衣服的信息 单文件上传")
     @RequestMapping(value = "/load",method = RequestMethod.POST)
-    @ResponseBody
     public void load( AddClothes addClothes ,MultipartFile uploadFile) throws IOException {
-
-//        AddClothes addClothes = new AddClothes();
-//
-//        addClothes.setMoney(Integer.parseInt(request.getParameter("money")));
-//        addClothes.setNum(Integer.parseInt(request.getParameter("num")));
-//        addClothes.setBrand(request.getParameter("brand"));
-//        addClothes.setInfo(request.getParameter("info"));
-//        addClothes.setType(request.getParameter("type"));
 
         //获取文件名字
         String originalFilename = uploadFile.getOriginalFilename();
@@ -219,7 +189,6 @@ public class AdminController {
     }
 
     @ApiOperation("删除衣服 IO删除")
-    @ResponseBody
     @RequestMapping(value = "/deleteclothes",method = RequestMethod.POST)
     public void deleteclothes(String id){
         //在数据库中删除 返回文件的路径
@@ -237,14 +206,12 @@ public class AdminController {
     }
 
     @ApiOperation("改变用户是否禁用")
-    @ResponseBody
     @RequestMapping(value = "/changealive",method = RequestMethod.POST)
     public void changealive(String username,int alive){
         adminService.changealive(username,alive);
     }
 
     @ApiOperation("根据用户信息查询 空则查询所有")
-    @ResponseBody
     @RequestMapping(value = "/typeselectuser",method = RequestMethod.POST)
     public List<User> typeselectuser(@RequestParam(defaultValue = "1") int pageNo,
                                      @RequestParam(defaultValue = "8") int pageSize,
@@ -259,7 +226,6 @@ public class AdminController {
         return  adminService.typeselectuser(user);}
 
     @ApiOperation("条件查询用户返回数量")
-    @ResponseBody
     @RequestMapping(value = "/counttypeselectuser",method = RequestMethod.POST)
     public int counttypeselectuser(@RequestParam(value = "form[username]") String username,
                                    @RequestParam(value = "form[name]") String name){
@@ -270,7 +236,6 @@ public class AdminController {
         return  adminService.counttypeselectuser(user);}
 
     @ApiOperation("查询购物车历史记录")
-    @ResponseBody
     @RequestMapping(value = "/selectallcarthistory",method = RequestMethod.POST)
     public List<CartHistory> selectallcarthistory() {
 
@@ -279,7 +244,6 @@ public class AdminController {
 
 
     @ApiOperation("查询管理员历史登陆")
-    @ResponseBody
     @RequestMapping(value = "/selectadmintime",method = RequestMethod.POST)
     public List<Admintime> selectadmintime(@RequestParam(defaultValue = "1") int pageNo,
                                            @RequestParam(defaultValue = "8") int pageSize) {
@@ -287,7 +251,6 @@ public class AdminController {
         return  adminService.selectadmintime();
     }
     @ApiOperation("统计管理员历史登录条数")
-    @ResponseBody
     @RequestMapping(value = "/countadmintime",method = RequestMethod.POST)
     public int countadmintime() {
         return  adminService.countadmintime();

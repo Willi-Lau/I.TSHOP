@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RequestMapping(value = "/UserController")
-@Controller
+@RestController
 @CrossOrigin
 @Api(tags ="用户信息Controller")
 public class UserController {
@@ -27,29 +27,13 @@ public class UserController {
 
     @ApiOperation("把注册的信息存入数据库")
     @RequestMapping(value = "/adduserinformation",method = RequestMethod.POST)
-    @ResponseBody
     public void adduserinformation(@RequestBody  User user){
-
-//        User user = new User();
-//        user.setUsername(request.getParameter("form[username]"));
-//        user.setPassword(request.getParameter("form[password]"));
-//        user.setName(request.getParameter("form[name]"));
-//        user.setBirthday(request.getParameter("form[birthday]"));
-//        user.setSex(request.getParameter("form[sex]"));
-//        user.setPhone(request.getParameter("form[phone]"));
-//        user.setAddress(request.getParameter("form[address]"));
-//        user.setEmail(request.getParameter("form[email]"));
-
         userService.adduserinformation(user);
     }
 
     @ApiOperation("查询登陆账户密码是否正确")
     @RequestMapping(value = "/checkupdate",method = RequestMethod.POST)
-    @ResponseBody
     public String checkupdate(@RequestParam(value = "form[password]") String password_from_form, @RequestParam(value = "form[name]")String name){
-
-
-
         String password_from_sql = null;
 
         int aliveuser = 0;
@@ -85,7 +69,6 @@ public class UserController {
     }
     @ApiOperation("查询用户登陆历史")
     @RequestMapping(value = "/selectusertime",method = RequestMethod.POST)
-    @ResponseBody
     public List<Usertime> selectusertime(@RequestParam(defaultValue = "1") int pageNo,
                                          @RequestParam(defaultValue = "8") int pageSize) {
         PageHelper.startPage(pageNo,pageSize);
@@ -93,7 +76,6 @@ public class UserController {
     }
     @ApiOperation("查询用户登陆历史条数")
     @RequestMapping(value = "/countusertime",method = RequestMethod.POST)
-    @ResponseBody
     public int countusertime() {
         return userService.countusertime();
     }

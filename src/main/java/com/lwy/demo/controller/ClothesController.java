@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequestMapping(value = "/ClothesController")
-@Controller
+@RestController
 @CrossOrigin
 @Api(tags ="前端服装部分Controller")
 public class ClothesController {
@@ -25,7 +25,6 @@ public class ClothesController {
 
     @ApiOperation("获取所有衣服的信息")
      @RequestMapping(value = "/selectallclothes",method = RequestMethod.POST)
-     @ResponseBody
     public List<Clothes> selectallclothes(String sex){
          List<Clothes> list = clothesService.selectallclothes(sex);
          return list;
@@ -33,14 +32,12 @@ public class ClothesController {
 
     @ApiOperation("获取所有衣服品牌")
     @RequestMapping(value = "/select_allclothesbrand",method = RequestMethod.POST)
-    @ResponseBody
     public List<String> select_allclothesbrand(){
         List<String> list = clothesService.select_allclothesbrand();
         return list;
     }
     @ApiOperation("获取所有衣服里最高价格")
     @RequestMapping(value = "/select_maxmoney",method = RequestMethod.POST)
-    @ResponseBody
     public int select_maxmoney(){
         int i = clothesService.select_maxmoney();
         return i;
@@ -48,7 +45,6 @@ public class ClothesController {
 
     @ApiOperation("条件搜索 根据品牌，性别，最高价最低价进行模糊查询")
     @RequestMapping(value = "/select_dreamclothes",method = RequestMethod.POST)
-    @ResponseBody
     public List<Clothes> select_dreamclothes(HttpServletRequest request){
         Clothes_type clothes_type= new Clothes_type();
 

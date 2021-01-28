@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @RequestMapping(value = "/CartController")
-@Controller
+@RestController
 @CrossOrigin
 @Api(tags ="购物车端的Controller")
 public class CartController {
@@ -29,7 +29,6 @@ public class CartController {
 
     @ApiOperation("支付钱，删除数据库里购物车信息，添加到历史购物车中")
     @RequestMapping(value = "/paycartclothes",method = RequestMethod.POST)
-    @ResponseBody
     public void paycartclothes(String name){
          //查询购物车所有的货物
         List<Cart_Clothes> selectcartclothes = cartService.selectcartclothes(name);
@@ -61,12 +60,8 @@ public class CartController {
 
     @ApiOperation("修改购物车")
     @RequestMapping(value = "/changecartclothes")
-    @ResponseBody
     public void changecartclothes(@RequestParam(value = "clothes_id") int id,int num,String name){
         Cart cart = new Cart();
-//        cart.setId(Integer.parseInt(request.getParameter("clothes_id")));
-//        cart.setNum(Integer.parseInt(request.getParameter("num")));
-//        cart.setUsername(request.getParameter("name"));
         cart.setId(id);
         cart.setNum(num);
         cart.setUsername(name);
@@ -75,7 +70,6 @@ public class CartController {
 
     @ApiOperation("查看指定用户购物车")
     @RequestMapping(value = "/selectcartclothes",method = RequestMethod.POST)
-    @ResponseBody
     public List<Cart_Clothes> selectcartclothes(String name){
         List<Cart_Clothes> list = null;
         list = cartService.selectcartclothes(name);
@@ -85,13 +79,9 @@ public class CartController {
 
     @ApiOperation("添加到购物车")
     @RequestMapping(value = "/addtocart",method = RequestMethod.POST)
-    @ResponseBody
     public void addtocart(int id,int cart_num,String name){
 
         Cart cart = new Cart();
-//        cart.setId(Integer.parseInt(request.getParameter("id")));
-//        cart.setNum(Integer.parseInt(request.getParameter("cart_num")));
-//        cart.setUsername(request.getParameter("name"));
         cart.setId(id);
         cart.setNum(cart_num);
         cart.setUsername(name);
@@ -100,7 +90,6 @@ public class CartController {
 
     @ApiOperation("修改指定用户总消费")
     @RequestMapping(value = "/grossmoney",method = RequestMethod.POST)
-    @ResponseBody
     public void grossmoney(String name,int grossmoney){
         cartService.grossmoney(name,grossmoney);
     }
